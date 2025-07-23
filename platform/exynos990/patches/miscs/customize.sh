@@ -7,20 +7,23 @@ SET_PROP "vendor" "persist.sys.fuse.passthrough.enable" "true"
 echo "Enabling IncrementalFS"
 SET_PROP "vendor" "ro.incremental.enable" "yes"
 
+echo "Enabling FS Verity"
+SET_PROP "vendor" "ro.apk_verity.mode" "2"
+
 echo "Setting SF flags"
 SET_PROP "vendor" "debug.sf.latch_unsignaled" "1"
 SET_PROP "vendor" "debug.sf.high_fps_late_app_phase_offset_ns" "0"
 SET_PROP "vendor" "debug.sf.high_fps_late_sf_phase_offset_ns" "0"
 
 echo "Setting Adaptive HFR flags"
-if [[ "$TARGET_CODENAME" != "c1s" && "$TARGET_CODENAME" != "c2s" && "$TARGET_CODENAME" != "r8s" ]]; then
+if [[ "$TARGET_CODENAME" != "c1s" && "$TARGET_CODENAME" != "c2s" ]]; then
     SET_PROP "vendor" "debug.sf.show_refresh_rate_overlay_render_rate" "true"
     SET_PROP "vendor" "ro.surface_flinger.game_default_frame_rate_override" "60"
     SET_PROP "vendor" "ro.surface_flinger.use_content_detection_for_refresh_rate" "true"
     SET_PROP "vendor" "ro.surface_flinger.set_touch_timer_ms" "300"
     SET_PROP "vendor" "ro.surface_flinger.set_idle_timer_ms" "600"
     SET_PROP "vendor" "ro.surface_flinger.enable_frame_rate_override" "true"
-elif [[ "$TARGET_CODENAME" == "c1s" || "$TARGET_CODENAME" == "r8s" ]]; then
+elif [[ "$TARGET_CODENAME" == "c1s" ]]; then
     SET_PROP "vendor" "debug.sf.show_refresh_rate_overlay_render_rate" "true"
     SET_PROP "vendor" "ro.surface_flinger.game_default_frame_rate_override" "60"
     SET_PROP "vendor" "ro.surface_flinger.use_content_detection_for_refresh_rate" "false"
@@ -72,7 +75,7 @@ SET_PROP "product" "bluetooth.profile.hid.device.enabled" "true"
 SET_PROP "product" "bluetooth.profile.hid.host.enabled" "true"
 SET_PROP "product" "bluetooth.profile.map.server.enabled" "true"
 SET_PROP "product" "bluetooth.profile.mcp.server.enabled" "false"
-SET_PROP "product" "bluetooth.profile.opp.enabled" "true"
+SET_PROP "product" "bluetooth.profile.opp.enabled" "false"
 SET_PROP "product" "bluetooth.profile.pan.nap.enabled" "true"
 SET_PROP "product" "bluetooth.profile.pan.panu.enabled" "true"
 SET_PROP "product" "bluetooth.profile.pbap.server.enabled" "true"
