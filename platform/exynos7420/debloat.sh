@@ -23,7 +23,6 @@
 # Camera SDK
 SYSTEM_DEBLOAT+="
 system/etc/default-permissions/default-permissions-com.samsung.android.globalpostprocmgr.xml
-system/etc/default-permissions/default-permissions-com.samsung.petservice.xml
 system/etc/default-permissions/default-permissions-com.samsung.videoscan.xml
 system/etc/permissions/cameraservice.xml
 system/etc/permissions/privapp-permissions-com.samsung.android.globalpostprocmgr.xml
