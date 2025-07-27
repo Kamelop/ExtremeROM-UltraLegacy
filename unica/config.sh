@@ -19,7 +19,7 @@
 ROM_VERSION="1.0.0-rc1"
 ROM_VERSION+="-$(git rev-parse --short HEAD)"
 ROM_CODENAME="Zero"
-ROM-STATUS="Beta"
+ROM_STATUS="Beta"
 
 # Source ROM firmware
 case "$TARGET_SINGLE_SYSTEM_IMAGE" in
