@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# SEC Floating Feature configuration file for Galaxy S6 Edge (zeroltexx)
+# SEC Floating Feature configuration file for Galaxy S6 Edge (zerolte)
 
 # Display
 SEC_FLOATING_FEATURE_LCD_SUPPORT_EXTRA_BRIGHTNESS=FALSE
