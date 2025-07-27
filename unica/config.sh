@@ -16,9 +16,9 @@
 #
 
 # UN1CA configuration file
-ROM_VERSION="2.5.1-nxt"
-ROM_VERSION+="-$(git rev-parse --short HEAD)"
-ROM_CODENAME="Nexus"
+ROM_VERSION="1.0.0-rc1"
+ROM_VERSION+="Beta"
+ROM_CODENAME="Zero"
 
 # Source ROM firmware
 case "$TARGET_SINGLE_SYSTEM_IMAGE" in
