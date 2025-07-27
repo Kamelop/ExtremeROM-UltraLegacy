@@ -1,4 +1,4 @@
-name: Build ExtremeROM zeroltexx
+name: Build ExtremeROM zerolte
 
 on:
   workflow_dispatch:
