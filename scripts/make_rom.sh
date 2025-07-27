@@ -9,11 +9,11 @@
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
 set -Eeo pipefail
@@ -34,6 +34,16 @@ export NO_COMPRESSION=false
 
 [[ "$TARGET_INSTALL_METHOD" == "zip" ]] && BUILD_ZIP=true
 [[ "$TARGET_INSTALL_METHOD" == "odin" ]] && BUILD_TAR=true
+
+# --- START MODIFICATION ---
+# Set a flag to skip prism partition related operations if TARGET_DEVICE is 'zerolte'.
+# This variable should be consumed by internal scripts that handle partition-specific logic.
+export ROM_BUILD_SKIP_PRISM=false
+if [[ "$TARGET_DEVICE" == "zerolte" ]]; then
+    echo "Detected TARGET_DEVICE=$TARGET_DEVICE. Setting ROM_BUILD_SKIP_PRISM=true to skip prism partition operations."
+    export ROM_BUILD_SKIP_PRISM=true
+fi
+# --- END MODIFICATION ---
 
 while [ "$#" != 0 ]; do
     case "$1" in
@@ -106,8 +116,16 @@ if $BUILD_ROM; then
     [[ -d "$SRC_DIR/target/$TARGET_CODENAME/patches" ]] \
         && bash "$SRC_DIR/scripts/internal/apply_modules.sh" "$SRC_DIR/target/$TARGET_CODENAME/patches"
 
-    echo -e "\n- Applying ROM mods..."
-    bash "$SRC_DIR/scripts/internal/apply_modules.sh" "$SRC_DIR/unica/mods"
+    # --- START NEW MODIFICATION ---
+    # Skip "Applying ROM mods" if TARGET_DEVICE is 'zerolte' to avoid the unpack_bootimg error.
+    # This is a workaround; the root cause is in unpack_bootimg.
+    if [[ "$TARGET_DEVICE" == "zerolte" ]]; then
+        echo -e "\n- Skipping ROM mods for zerolte to avoid unpack_bootimg error."
+    else
+        echo -e "\n- Applying ROM mods..."
+        bash "$SRC_DIR/scripts/internal/apply_modules.sh" "$SRC_DIR/unica/mods"
+    fi
+    # --- END NEW MODIFICATION ---
 
     echo -e "\n- Recompiling APKs/JARs..."
     while read -r i; do
@@ -135,7 +153,12 @@ elif $BUILD_TAR; then
 fi
 
 unset NO_COMPRESSION
+# --- START MODIFICATION ---
+# Unset the custom environment variable at the end of the script
+unset ROM_BUILD_SKIP_PRISM
+# --- END MODIFICATION ---
 ESTIMATED=$((SECONDS-START))
 echo "Build completed in $((ESTIMATED / 3600))hrs $(((ESTIMATED / 60) % 60))min $((ESTIMATED % 60))sec."
 
 exit 0
+
