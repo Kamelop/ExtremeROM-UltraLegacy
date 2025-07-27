@@ -17,7 +17,7 @@
 
 # Device configuration file for Galaxy S6 Edge (Exynos)
 TARGET_NAME="Galaxy S6 Edge (Exynos)"
-TARGET_CODENAME="zeroltexx"
+TARGET_CODENAME="zerolte"
 TARGET_ASSERT_MODEL=("SM-G925F")
 TARGET_PLATFORM="exynos7420"
 TARGET_FIRMWARE="SM-G925F/XEF/359522060648607"
