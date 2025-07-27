@@ -101,13 +101,15 @@ EXTRACT_OS_PARTITIONS()
         lz4_compressed=false
     fi
 
-    # If TARGET_CODENAME is "zerolte", we modify the lists of folders/partitions
-    # to exclude 'product' and 'vendor', and prevent 'super.img' extraction.
+    # --- MODIFICATION START ---
+    # If TARGET_CODENAME is "zerolte", only super.img will be skipped.
+    # Product and vendor partitions will be processed if they exist.
     if [[ "$TARGET_CODENAME" == "zerolte" ]]; then
-        echo "TARGET_CODENAME is zerolte. Skipping product, vendor, and super.img extraction."
-        COMMON_FOLDERS="system" # Only 'system' will be considered for existence checks
-        NON_DYNAMIC_PARTITIONS="system" # Only 'system' will be processed in the non-dynamic partition loop
+        echo "TARGET_CODENAME is zerolte. Skipping super.img extraction."
+        # COMMON_FOLDERS and NON_DYNAMIC_PARTITIONS remain "product system vendor"
+        # The skipping of super.img is handled by the conditional 'if' below.
     fi
+    # --- MODIFICATION END ---
 
     for folder in $COMMON_FOLDERS
     do
@@ -160,8 +162,8 @@ EXTRACT_OS_PARTITIONS()
                 done
             fi
         else
-            # This block handles non-dynamic partitions.
-            # If TARGET_CODENAME is "zerolte", NON_DYNAMIC_PARTITIONS will only contain "system".
+            # This block handles non-dynamic partitions (product, system, vendor).
+            # For zerolte, these will now be processed.
             for partition in $NON_DYNAMIC_PARTITIONS
             do
                 echo "Extracting $partition.img from TAR"
@@ -280,6 +282,15 @@ EXTRACT_AVB_BINARIES()
 {
     local PDR
     PDR="$(pwd)"
+
+    # --- MODIFICATION START ---
+    # If TARGET_CODENAME is "zerolte", skip AVB binaries extraction entirely.
+    if [[ "$TARGET_CODENAME" == "zerolte" ]]; then
+        echo "TARGET_CODENAME is zerolte. Skipping AVB binaries extraction (no vbmeta)."
+        cd "$PDR" # Ensure we return to the original directory
+        return 0 # Exit the function successfully
+    fi
+    # --- MODIFICATION END ---
 
     local lz4_compressed=true
     if [[ "$TARGET_CODENAME" == "zerolte" ]]; then
