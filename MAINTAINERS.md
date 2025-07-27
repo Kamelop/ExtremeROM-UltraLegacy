@@ -1,4 +1,11 @@
-List of maintainers
+# List of maintainers
+
+## ArtisanROM:
+
+Exynos 7420
+M: Android Artisan (No TG)
+
+## ExtremeROM:
 
 Exynos 9820
 M: ExtremeXT (@ExtremeXT)
