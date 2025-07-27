@@ -7,7 +7,7 @@ BUILD_KERNEL()
     PARENT=$(pwd)
     cd $KERNEL_TMP_DIR
 
-    ./build.sh -m ${TARGET_CODENAME} -k y -r n
+    ./artisan.sh -m ${TARGET_CODENAME} -k y -r n
 
     # Fixup for LTE devices
     ./build.sh -m ${TARGET_CODENAME}lte -k n -r n -d y
@@ -76,7 +76,7 @@ REPLACE_KERNEL_BINARIES()
     mv -v "$KERNEL_TMP_DIR/build/out/$TARGET_CODENAME/dtbo.img" "$WORK_DIR/kernel"
 
     # And now for the LTE DTBOs
-    if [[ "$TARGET_CODENAME" != "r8s" && "$TARGET_CODENAME" != "z3s" && "$TARGET_INSTALL_METHOD" != "odin" ]]; then
+    if [[ "$TARGET_CODENAME" != "r8s" && "$TARGET_CODENAME" != "z3s" && "$TARGET_CODENAME" != "zerolte" && "$TARGET_INSTALL_METHOD" != "odin" ]]; then
 	mv -v "$KERNEL_TMP_DIR/build/out/${TARGET_CODENAME}lte/dtbo.img" "$WORK_DIR/kernel/dtbo_lte.img"
     fi
 
