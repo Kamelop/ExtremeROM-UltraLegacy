@@ -9,11 +9,11 @@
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
 # shellcheck disable=SC2162
@@ -45,16 +45,37 @@ EXTRACT_KERNEL_BINARIES()
     local PDR
     PDR="$(pwd)"
 
-    local FILES="boot.img.lz4 dtb.img.lz4 dtbo.img.lz4 init_boot.img.lz4 vendor_boot.img.lz4"
+    # Determine if .lz4 suffix should be used
+    local lz4_compressed=true
+    if [[ "$TARGET_CODENAME" == "zerolte" ]]; then
+        lz4_compressed=false
+    fi
+
+    # List base filenames, suffix will be added dynamically
+    local FILES_BASENAMES="boot.img dtb.img dtbo.img init_boot.img vendor_boot.img"
 
     echo "- Extracting kernel binaries..."
     cd "$FW_DIR/${MODEL}_${REGION}"
-    for file in $FILES
+    for file_basename in $FILES_BASENAMES
     do
-        [ -f "${file%.lz4}" ] && continue
-        tar tf "$AP_TAR" "$file" &>/dev/null || continue
-        echo "Extracting ${file%.lz4}"
-        tar xf "$AP_TAR" "$file" && lz4 -d -q --rm "$file" "${file%.lz4}"
+        local file_in_tar="${file_basename}"
+        if $lz4_compressed; then
+            file_in_tar="${file_basename}.lz4"
+        fi
+
+        [ -f "${file_basename}" ] && continue # Check for the final uncompressed file
+
+        tar tf "$AP_TAR" "$file_in_tar" &>/dev/null || continue
+        
+        echo "Extracting ${file_basename}"
+        tar xf "$AP_TAR" "$file_in_tar"
+        
+        # Only perform lz4 decompression if it was an lz4 compressed file.
+        # If not lz4_compressed (zerolte), tar extracted it as file_basename already,
+        # so no further action is needed.
+        if $lz4_compressed; then
+            lz4 -d -q --rm "$file_in_tar" "${file_basename}"
+        fi
     done
 
     cd "$PDR"
@@ -72,6 +93,22 @@ EXTRACT_OS_PARTITIONS()
     cd "$FW_DIR/${MODEL}_${REGION}"
 
     local COMMON_FOLDERS="product system vendor"
+    local NON_DYNAMIC_PARTITIONS="product system vendor"
+
+    # Determine if .lz4 suffix should be used for extraction and decompression
+    local lz4_compressed=true
+    if [[ "$TARGET_CODENAME" == "zerolte" ]]; then
+        lz4_compressed=false
+    fi
+
+    # If TARGET_CODENAME is "zerolte", we modify the lists of folders/partitions
+    # to exclude 'product' and 'vendor', and prevent 'super.img' extraction.
+    if [[ "$TARGET_CODENAME" == "zerolte" ]]; then
+        echo "TARGET_CODENAME is zerolte. Skipping product, vendor, and super.img extraction."
+        COMMON_FOLDERS="system" # Only 'system' will be considered for existence checks
+        NON_DYNAMIC_PARTITIONS="system" # Only 'system' will be processed in the non-dynamic partition loop
+    fi
+
     for folder in $COMMON_FOLDERS
     do
         [ ! -d "$folder" ] && SHOULD_EXTRACT=true
@@ -79,11 +116,24 @@ EXTRACT_OS_PARTITIONS()
     done
 
     if $SHOULD_EXTRACT; then
-        if tar tf "$AP_TAR" "super.img.lz4" &>/dev/null; then
+        # Only attempt to extract super.img if TARGET_CODENAME is NOT "zerolte"
+        # and if super.img (with or without .lz4 suffix) exists in the AP_TAR
+        local super_img_in_tar="super.img"
+        if $lz4_compressed; then
+            super_img_in_tar="super.img.lz4"
+        fi
+
+        if [[ "$TARGET_CODENAME" != "zerolte" ]] && tar tf "$AP_TAR" "$super_img_in_tar" &>/dev/null; then
             if [ ! -f "lpdump" ] || $SHOULD_EXTRACT_SUPER; then
                 echo "Extracting super.img"
-                tar xf "$AP_TAR" "super.img.lz4"
-                lz4 -d -q --rm "super.img.lz4" "super.img.sparse"
+                tar xf "$AP_TAR" "$super_img_in_tar"
+                
+                if $lz4_compressed; then
+                    lz4 -d -q --rm "$super_img_in_tar" "super.img.sparse"
+                else
+                    # If not lz4_compressed (zerolte), rename the extracted .img to .img.sparse
+                    mv "$super_img_in_tar" "super.img.sparse"
+                fi
                 simg2img "super.img.sparse" "super.img" && rm "super.img.sparse"
                 { lpunpack "super.img" > /dev/null; } 2>&1
                 lpdump "super.img" > "lpdump" && rm "super.img"
@@ -92,24 +142,52 @@ EXTRACT_OS_PARTITIONS()
                 local CSC_PARTITIONS="prism optics"
                 for partition in $CSC_PARTITIONS
                 do
+                    local partition_in_tar="${partition}.img"
+                    if $lz4_compressed; then
+                        partition_in_tar="${partition}.img.lz4"
+                    fi
+
                     echo "Extracting $partition.img from TAR"
-                    tar xf "$CSC_TAR" "$partition.img.lz4"
-                    lz4 -d -q --rm "$partition.img.lz4" "$partition.img.sparse"
+                    tar xf "$CSC_TAR" "$partition_in_tar"
+                    
+                    if $lz4_compressed; then
+                        lz4 -d -q --rm "$partition_in_tar" "$partition.img.sparse"
+                    else
+                        # If not lz4_compressed (zerolte), rename the extracted .img to .img.sparse
+                        mv "$partition_in_tar" "$partition.img.sparse"
+                    fi
                     simg2img "$partition.img.sparse" "$partition.img" && rm "$partition.img.sparse"
                 done
             fi
         else
-            local NON_DYNAMIC_PARTITIONS="product system vendor"
+            # This block handles non-dynamic partitions.
+            # If TARGET_CODENAME is "zerolte", NON_DYNAMIC_PARTITIONS will only contain "system".
             for partition in $NON_DYNAMIC_PARTITIONS
             do
                 echo "Extracting $partition.img from TAR"
-                if tar tf "$AP_TAR" "$partition.img.lz4" &>/dev/null; then
-                    tar xf "$AP_TAR" "$partition.img.lz4"
-                else
-                    tar xf "$CSC_TAR" "$partition.img.lz4"
+                local partition_file_in_tar="${partition}.img"
+                if $lz4_compressed; then
+                    partition_file_in_tar="${partition}.img.lz4"
                 fi
-                lz4 -d -q --rm "$partition.img.lz4" "$partition.img.sparse"
-                simg2img "$partition.img.sparse" "$partition.img" && rm "$partition.img.sparse"
+
+                # Try to extract from AP_TAR first, then CSC_TAR
+                if tar tf "$AP_TAR" "$partition_file_in_tar" &>/dev/null; then
+                    tar xf "$AP_TAR" "$partition_file_in_tar"
+                elif tar tf "$CSC_TAR" "$partition_file_in_tar" &>/dev/null; then
+                    tar xf "$CSC_TAR" "$partition_file_in_tar"
+                else
+                    echo "Warning: Could not find $partition_file_in_tar in AP/CSC TARs. Skipping."
+                    continue # Skip to the next partition if not found
+                fi
+
+                # Handle decompression/renaming to .sparse for simg2img
+                if $lz4_compressed; then
+                    lz4 -d -q --rm "$partition_file_in_tar" "${partition}.img.sparse"
+                else
+                    # If not lz4_compressed (zerolte), rename the extracted .img to .img.sparse
+                    mv "$partition_file_in_tar" "${partition}.img.sparse"
+                fi
+                simg2img "${partition}.img.sparse" "${partition}.img" && rm "${partition}.img.sparse"
             done
         fi
 
@@ -203,12 +281,31 @@ EXTRACT_AVB_BINARIES()
     local PDR
     PDR="$(pwd)"
 
+    local lz4_compressed=true
+    if [[ "$TARGET_CODENAME" == "zerolte" ]]; then
+        lz4_compressed=false
+    fi
+
     echo "- Extracting AVB binaries..."
     cd "$FW_DIR/${MODEL}_${REGION}"
-    if [ ! -f "vbmeta.img" ] && tar tf "$BL_TAR" "vbmeta.img.lz4" &>/dev/null; then
-        echo "Extracting vbmeta.img"
-        tar xf "$BL_TAR" "vbmeta.img.lz4" && lz4 -d -q --rm "vbmeta.img.lz4" "vbmeta.img"
+    
+    local vbmeta_file_in_tar="vbmeta.img"
+    if $lz4_compressed; then
+        vbmeta_file_in_tar="vbmeta.img.lz4"
     fi
+
+    if [ ! -f "vbmeta.img" ] && tar tf "$BL_TAR" "$vbmeta_file_in_tar" &>/dev/null; then
+        echo "Extracting vbmeta.img"
+        tar xf "$BL_TAR" "$vbmeta_file_in_tar"
+        
+        # Only perform lz4 decompression if it was an lz4 compressed file.
+        # If not lz4_compressed (zerolte), tar extracted it as vbmeta.img already,
+        # so no further action is needed.
+        if $lz4_compressed; then
+            lz4 -d -q --rm "$vbmeta_file_in_tar" "vbmeta.img"
+        fi
+    fi
+
     if [ ! -f "vbmeta_patched.img" ]; then
         echo "Generating vbmeta_patched.img"
         cp --preserve=all "vbmeta.img" "vbmeta_patched.img"
