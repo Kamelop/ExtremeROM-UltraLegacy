@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [zeroltexx]
+        target: [zerolte]
 
     steps:
 
