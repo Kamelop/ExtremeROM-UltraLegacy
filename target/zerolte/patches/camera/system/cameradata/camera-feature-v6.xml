@@ -121,4 +121,8 @@
     
     <!-- Protection for ESD Test -->
     <local name="SUPPORT_CAMERA_ESD_CHECK" value="true"/>
+
+    <!-- ExtremeROM -->
+    <local name="SUPPORT_DEFAULT_HEVC" value="true"/>
+    <local name="SUPPORT_LOG_VIDEO" value="true"/>
 </resources>
