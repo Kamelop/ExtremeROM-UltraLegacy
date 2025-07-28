@@ -62,7 +62,6 @@ jobs:
         with:
           node-version: 'latest'
 
-
       - name: Build dependencies
         run: source ./buildenv.sh ${{ matrix.target }}
 
