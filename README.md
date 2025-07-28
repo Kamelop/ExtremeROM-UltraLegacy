@@ -13,7 +13,7 @@
 # What is ArtisanROM Project Zero?
 ArtisanROM Project Zero is a work-in-progress custom firmware for Samsung Galaxy devices based on ExtremeROM. It's based on the latest and greatest iteration of Samsung's UX and it also includes additional features and tweaks to ensure the best possible experience out of the box.
 It is based on the UN1CA build system which allows automatic downloading/extraction of the firmware, applying the required patches and generating a flashable zip/tar package for the specified target device.
-ArtisanROM Project Zero supports the S6 Edge (zerolte) running a Exynos 7420 SoC
+ArtisanROM Project Zero supports the S6 series running a Exynos 7420 SoC
 
 Any form of contribution, suggestions, bug report or feature request for the project will be welcome.
 
