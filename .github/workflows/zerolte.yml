@@ -62,13 +62,34 @@ jobs:
         with:
           node-version: 'latest'
 
+
       - name: Build dependencies
         run: source ./buildenv.sh ${{ matrix.target }}
+
+      - name: Download source firmware
+        run: |
+          source ./buildenv.sh ${{ matrix.target }}
+          TARGET_FIRMWARE="$SOURCE_FIRMWARE" ./scripts/download_fw.sh --force
+
+      - name: Extract source firmware
+        run: |
+          source ./buildenv.sh ${{ matrix.target }}
+          TARGET_FIRMWARE="$SOURCE_FIRMWARE" ./scripts/extract_fw.sh --force
+
+      - name: Download target firmware
+        run: |
+          source ./buildenv.sh ${{ matrix.target }}
+          SOURCE_FIRMWARE="$TARGET_FIRMWARE" ./scripts/download_fw.sh --force
+
+      - name: Extract target firmware
+        run: |
+          source ./buildenv.sh ${{ matrix.target }}
+          SOURCE_FIRMWARE="$TARGET_FIRMWARE" ./scripts/extract_zerolte_fw.sh --force
 
       - name: Build ROM
         run: |
           source ./buildenv.sh ${{ matrix.target }}
-          run_cmd make_rom
+          ./scripts/make_rom.sh --force
 
       - name: Find ZIP file
         id: find_zip
