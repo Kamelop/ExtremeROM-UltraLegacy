@@ -9,6 +9,7 @@
 </p>
 <p align="center">ArtisanROM Project Zero is a work-in-progress custom firmware for Samsung Galaxy devices.</p>
 
+# This is a fork of (ExtremeROM)[https://github.com/ExtremeXT/ExtremeROM]
 
 # What is ArtisanROM Project Zero?
 ArtisanROM Project Zero is a work-in-progress custom firmware for Samsung Galaxy devices based on ExtremeROM. It's based on the latest and greatest iteration of Samsung's UX and it also includes additional features and tweaks to ensure the best possible experience out of the box.
