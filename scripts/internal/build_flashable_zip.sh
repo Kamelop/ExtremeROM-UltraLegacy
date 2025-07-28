@@ -103,13 +103,13 @@ GENERATE_OP_LIST()
     local HAS_SYSTEM_DLKM=false
 
     [ -f "$TMP_DIR/system.img" ] && HAS_SYSTEM=true
-    [ -f "$TMP_DIR/vendor.img" ] && HAS_VENDOR=true
+    [ -f "$TMP_DIR/vendor.img" ] && HAS_VENDOR=false
     [ -f "$TMP_DIR/product.img" ] && HAS_PRODUCT=true
-    [ -f "$TMP_DIR/system_ext.img" ] && HAS_SYSTEM_EXT=true
-    [ -f "$TMP_DIR/odm.img" ] && HAS_ODM=true
-    [ -f "$TMP_DIR/vendor_dlkm.img" ] && HAS_VENDOR_DLKM=true
-    [ -f "$TMP_DIR/odm_dlkm.img" ] && HAS_ODM_DLKM=true
-    [ -f "$TMP_DIR/system_dlkm.img" ] && HAS_SYSTEM_DLKM=true
+    [ -f "$TMP_DIR/system_ext.img" ] && HAS_SYSTEM_EXT=false
+    [ -f "$TMP_DIR/odm.img" ] && HAS_ODM=false
+    [ -f "$TMP_DIR/vendor_dlkm.img" ] && HAS_VENDOR_DLKM=false
+    [ -f "$TMP_DIR/odm_dlkm.img" ] && HAS_ODM_DLKM=false
+    [ -f "$TMP_DIR/system_dlkm.img" ] && HAS_SYSTEM_DLKM=false
 
     [ -f "$OP_LIST_FILE" ] && rm -f "$OP_LIST_FILE"
     touch "$OP_LIST_FILE"
