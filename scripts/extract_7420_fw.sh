@@ -47,7 +47,7 @@ EXTRACT_KERNEL_BINARIES()
 
     # Determine if .lz4 suffix should be used
     local lz4_compressed=true
-    if [[ "$TARGET_CODENAME" == "zerolte" ]]; then
+    if [[ "$TARGET_PLATFORM" == "exynos7420" ]]; then
         lz4_compressed=false
     fi
 
@@ -71,7 +71,7 @@ EXTRACT_KERNEL_BINARIES()
         tar xf "$AP_TAR" "$file_in_tar"
         
         # Only perform lz4 decompression if it was an lz4 compressed file.
-        # If not lz4_compressed (zerolte), tar extracted it as file_basename already,
+        # If not lz4_compressed (exynos7420), tar extracted it as file_basename already,
         # so no further action is needed.
         if $lz4_compressed; then
             lz4 -d -q --rm "$file_in_tar" "${file_basename}"
@@ -97,15 +97,15 @@ EXTRACT_OS_PARTITIONS()
 
     # Determine if .lz4 suffix should be used for extraction and decompression
     local lz4_compressed=true
-    if [[ "$TARGET_CODENAME" == "zerolte" ]]; then
+    if [[ "$TARGET_PLATFORM" == "exynos7420" ]]; then
         lz4_compressed=false
     fi
 
     # --- MODIFICATION START ---
-    # If TARGET_CODENAME is "zerolte", only super.img will be skipped.
+    # If TARGET_PLATFORM is "exynos7420", only super.img will be skipped.
     # Product and vendor partitions will be processed if they exist.
-    if [[ "$TARGET_CODENAME" == "zerolte" ]]; then
-        echo "TARGET_CODENAME is zerolte. Skipping super.img extraction."
+    if [[ "$TARGET_PLATFORM" == "exynos7420" ]]; then
+        echo "TARGET_PLATFORM is exynos7420. Skipping super.img extraction."
         # COMMON_FOLDERS and NON_DYNAMIC_PARTITIONS remain "product system vendor"
         # The skipping of super.img is handled by the conditional 'if' below.
     fi
@@ -118,14 +118,14 @@ EXTRACT_OS_PARTITIONS()
     done
 
     if $SHOULD_EXTRACT; then
-        # Only attempt to extract super.img if TARGET_CODENAME is NOT "zerolte"
+        # Only attempt to extract super.img if TARGET_PLATFORM is NOT "exynos7420"
         # and if super.img (with or without .lz4 suffix) exists in the AP_TAR
         local super_img_in_tar="super.img"
         if $lz4_compressed; then
             super_img_in_tar="super.img.lz4"
         fi
 
-        if [[ "$TARGET_CODENAME" != "zerolte" ]] && tar tf "$AP_TAR" "$super_img_in_tar" &>/dev/null; then
+        if [[ "$TARGET_PLATFORM" != "exynos7420" ]] && tar tf "$AP_TAR" "$super_img_in_tar" &>/dev/null; then
             if [ ! -f "lpdump" ] || $SHOULD_EXTRACT_SUPER; then
                 echo "Extracting super.img"
                 tar xf "$AP_TAR" "$super_img_in_tar"
@@ -133,7 +133,7 @@ EXTRACT_OS_PARTITIONS()
                 if $lz4_compressed; then
                     lz4 -d -q --rm "$super_img_in_tar" "super.img.sparse"
                 else
-                    # If not lz4_compressed (zerolte), rename the extracted .img to .img.sparse
+                    # If not lz4_compressed (exynos7420), rename the extracted .img to .img.sparse
                     mv "$super_img_in_tar" "super.img.sparse"
                 fi
                 simg2img "super.img.sparse" "super.img" && rm "super.img.sparse"
@@ -155,7 +155,7 @@ EXTRACT_OS_PARTITIONS()
                     if $lz4_compressed; then
                         lz4 -d -q --rm "$partition_in_tar" "$partition.img.sparse"
                     else
-                        # If not lz4_compressed (zerolte), rename the extracted .img to .img.sparse
+                        # If not lz4_compressed (exynos7420), rename the extracted .img to .img.sparse
                         mv "$partition_in_tar" "$partition.img.sparse"
                     fi
                     simg2img "$partition.img.sparse" "$partition.img" && rm "$partition.img.sparse"
@@ -163,7 +163,7 @@ EXTRACT_OS_PARTITIONS()
             fi
         else
             # This block handles non-dynamic partitions (product, system, vendor).
-            # For zerolte, these will now be processed.
+            # For exynos7420, these will now be processed.
             for partition in $NON_DYNAMIC_PARTITIONS
             do
                 echo "Extracting $partition.img from TAR"
@@ -186,7 +186,7 @@ EXTRACT_OS_PARTITIONS()
                 if $lz4_compressed; then
                     lz4 -d -q --rm "$partition_file_in_tar" "${partition}.img.sparse"
                 else
-                    # If not lz4_compressed (zerolte), rename the extracted .img to .img.sparse
+                    # If not lz4_compressed (exynos7420), rename the extracted .img to .img.sparse
                     mv "$partition_file_in_tar" "${partition}.img.sparse"
                 fi
                 simg2img "${partition}.img.sparse" "${partition}.img" && rm "${partition}.img.sparse"
@@ -284,16 +284,16 @@ EXTRACT_AVB_BINARIES()
     PDR="$(pwd)"
 
     # --- MODIFICATION START ---
-    # If TARGET_CODENAME is "zerolte", skip AVB binaries extraction entirely.
-    if [[ "$TARGET_CODENAME" == "zerolte" ]]; then
-        echo "TARGET_CODENAME is zerolte. Skipping AVB binaries extraction (no vbmeta)."
+    # If TARGET_PLATFORM is "exynos7420", skip AVB binaries extraction entirely.
+    if [[ "$TARGET_PLATFORM" == "exynos7420" ]]; then
+        echo "TARGET_PLATFORM is exynos7420. Skipping AVB binaries extraction (no vbmeta)."
         cd "$PDR" # Ensure we return to the original directory
         return 0 # Exit the function successfully
     fi
     # --- MODIFICATION END ---
 
     local lz4_compressed=true
-    if [[ "$TARGET_CODENAME" == "zerolte" ]]; then
+    if [[ "$TARGET_PLATFORM" == "exynos7420" ]]; then
         lz4_compressed=false
     fi
 
@@ -310,7 +310,7 @@ EXTRACT_AVB_BINARIES()
         tar xf "$BL_TAR" "$vbmeta_file_in_tar"
         
         # Only perform lz4 decompression if it was an lz4 compressed file.
-        # If not lz4_compressed (zerolte), tar extracted it as vbmeta.img already,
+        # If not lz4_compressed (exynos7420), tar extracted it as vbmeta.img already,
         # so no further action is needed.
         if $lz4_compressed; then
             lz4 -d -q --rm "$vbmeta_file_in_tar" "vbmeta.img"
