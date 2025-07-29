@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [zerolte, zeroflte]
+        target: [zerolte, zeroflte, noblelte]
 
     steps:
 
