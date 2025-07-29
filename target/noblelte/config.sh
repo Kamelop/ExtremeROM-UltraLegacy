@@ -15,8 +15,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Device configuration file for Galaxy Note 5 (Exynos)
-TARGET_NAME="Galaxy Note 5 (Exynos)"
+# Device configuration file for Galaxy Note5 (Exynos)
+TARGET_NAME="Galaxy Note5 (Exynos)"
 TARGET_CODENAME="noblelte"
 TARGET_ASSERT_MODEL=("SM-N920C")
 TARGET_PLATFORM="exynos7420"
