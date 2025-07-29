@@ -2,10 +2,10 @@
   <img loading="lazy" src="readme-res/banner.png"/>
 </h1>
 <p align="center">
-  <a href="https://github.com/ArtisanROM/ExtremeROM-S6x/blob/fifteen/LICENSE"><img loading="lazy" src="https://img.shields.io/github/license/ArtisanROM/ExtremeROM-S6x?style=for-the-badge&logo=github"/></a>
-  <a href="https://github.com/ArtisanROM/ExtremeROM-S6x/commits/fifteen"><img loading="lazy" src="https://img.shields.io/github/last-commit/ArtisanROM/ExtremeROM-S6x/fifteen?style=for-the-badge"/></a>
-  <a href="https://github.com/ArtisanROM/ExtremeROM-S6x/stargazers"><img loading="lazy" src="https://img.shields.io/github/stars/ArtisanROM/ExtremeROM-S6x?style=for-the-badge"/></a>
-  <a href="https://github.com/ArtisanROM/ExtremeROM-S6x/graphs/contributors"><img loading="lazy" src="https://img.shields.io/github/contributors/ArtisanROM/ExtremeROM-S6x?style=for-the-badge"/></a>
+  <a href="https://github.com/ArtisanROM/ExtremeROM-7420/blob/fifteen/LICENSE"><img loading="lazy" src="https://img.shields.io/github/license/ArtisanROM/ExtremeROM-7420?style=for-the-badge&logo=github"/></a>
+  <a href="https://github.com/ArtisanROM/ExtremeROM-7420/commits/fifteen"><img loading="lazy" src="https://img.shields.io/github/last-commit/ArtisanROM/ExtremeROM-7420/fifteen?style=for-the-badge"/></a>
+  <a href="https://github.com/ArtisanROM/ExtremeROM-7420/stargazers"><img loading="lazy" src="https://img.shields.io/github/stars/ArtisanROM/ExtremeROM-7420?style=for-the-badge"/></a>
+  <a href="https://github.com/ArtisanROM/ExtremeROM-7420/graphs/contributors"><img loading="lazy" src="https://img.shields.io/github/contributors/ArtisanROM/ExtremeROM-7420?style=for-the-badge"/></a>
 </p>
 <p align="center">ArtisanROM Project Zero is a work-in-progress custom firmware for Samsung Galaxy devices.</p>
 
@@ -120,4 +120,4 @@ Original UN1CA credits:
 - *All the UN1CA project contributors and testers ❤️*
 
 # Stargazers over time
-[![Stargazers over time](https://starchart.cc/ArtisanROM/ExtremeROM-S6x.svg)](https://starchart.cc/ArtisanROM/ExtremeROM-S6x)
+[![Stargazers over time](https://starchart.cc/ArtisanROM/ExtremeROM-7420.svg)](https://starchart.cc/ArtisanROM/ExtremeROM-7420)
