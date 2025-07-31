@@ -1,5 +1,5 @@
 # ArtisanROM Ultra Legacy
-awaiting approval for N/S9 from @cornshiba (XDAForums)
+Awaiting approval for N/S9 from @cornshiba (XDAForums)
 <h1 align="center">
   <img loading="lazy" src="readme-res/banner.png"/>
 </h1>
@@ -9,7 +9,7 @@ awaiting approval for N/S9 from @cornshiba (XDAForums)
   <a href="https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/stargazers"><img loading="lazy" src="https://img.shields.io/github/stars/ArtisanROM/ExtremeROM-UltraLegacy?style=for-the-badge"/></a>
   <a href="https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/graphs/contributors"><img loading="lazy" src="https://img.shields.io/github/contributors/ArtisanROM/ExtremeROM-UltraLegacy?style=for-the-badge"/></a>
 </p>
-<p align="center">ArtisanROM Project Zero is a work-in-progress custom firmware for Samsung Galaxy devices.</p>
+<p align="center">ArtisanROM Ultra Legacy is a work-in-progress custom firmware for Samsung Galaxy devices.</p>
 
 # This is a fork of [ExtremeROM](https://github.com/ExtremeXT/ExtremeROM)
 
