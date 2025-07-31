@@ -84,7 +84,7 @@ jobs:
           node-version: 'latest'
 
       - name: Build dependencies
-        run: source ./buildenv.sh z3s
+        run: source ./buildenv.sh zerolte
 
       - name: Update prebuilt blobs
         run: |
