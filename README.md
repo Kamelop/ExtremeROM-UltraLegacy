@@ -1,3 +1,5 @@
+# This project will soon support the s8x and s9x.
+awaiting approval for s9 from cornshiba
 <h1 align="center">
   <img loading="lazy" src="readme-res/banner.png"/>
 </h1>
