@@ -88,7 +88,7 @@ jobs:
 
       - name: Update prebuilt blobs
         run: |
-          source ./buildenv.sh z3s
+          source ./buildenv.sh zerolte
           ./scripts/internal/update_prebuilt_blobs.sh ${{ matrix.path }}
           echo "PDA_BUILD=$(cat ./${{ matrix.path }}/.current | cut -d "/" -f 1)" >> $GITHUB_ENV
 
