@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [TARGET_CODENAME]
+        target: [r7n]
 
     steps:
 
