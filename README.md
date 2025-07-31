@@ -1,22 +1,22 @@
-# This project will soon support the s8x and s9x.
-awaiting approval for s9 from cornshiba
+# ArtisanROM Ultra Legacy
+awaiting approval for N/S9 from @cornshiba (XDAForums)
 <h1 align="center">
   <img loading="lazy" src="readme-res/banner.png"/>
 </h1>
 <p align="center">
-  <a href="https://github.com/ArtisanROM/ExtremeROM-7420/blob/fifteen/LICENSE"><img loading="lazy" src="https://img.shields.io/github/license/ArtisanROM/ExtremeROM-7420?style=for-the-badge&logo=github"/></a>
-  <a href="https://github.com/ArtisanROM/ExtremeROM-7420/commits/fifteen"><img loading="lazy" src="https://img.shields.io/github/last-commit/ArtisanROM/ExtremeROM-7420/fifteen?style=for-the-badge"/></a>
-  <a href="https://github.com/ArtisanROM/ExtremeROM-7420/stargazers"><img loading="lazy" src="https://img.shields.io/github/stars/ArtisanROM/ExtremeROM-7420?style=for-the-badge"/></a>
-  <a href="https://github.com/ArtisanROM/ExtremeROM-7420/graphs/contributors"><img loading="lazy" src="https://img.shields.io/github/contributors/ArtisanROM/ExtremeROM-7420?style=for-the-badge"/></a>
+  <a href="https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/blob/fifteen/LICENSE"><img loading="lazy" src="https://img.shields.io/github/license/ArtisanROM/ExtremeROM-UltraLegacy?style=for-the-badge&logo=github"/></a>
+  <a href="https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/commits/fifteen"><img loading="lazy" src="https://img.shields.io/github/last-commit/ArtisanROM/ExtremeROM-UltraLegacy/fifteen?style=for-the-badge"/></a>
+  <a href="https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/stargazers"><img loading="lazy" src="https://img.shields.io/github/stars/ArtisanROM/ExtremeROM-UltraLegacy?style=for-the-badge"/></a>
+  <a href="https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/graphs/contributors"><img loading="lazy" src="https://img.shields.io/github/contributors/ArtisanROM/ExtremeROM-UltraLegacy?style=for-the-badge"/></a>
 </p>
 <p align="center">ArtisanROM Project Zero is a work-in-progress custom firmware for Samsung Galaxy devices.</p>
 
 # This is a fork of [ExtremeROM](https://github.com/ExtremeXT/ExtremeROM)
 
-# What is ArtisanROM Project Zero?
-ArtisanROM Project Zero is a work-in-progress custom firmware for Samsung Galaxy devices based on ExtremeROM. It's based on the latest and greatest iteration of Samsung's UX and it also includes additional features and tweaks to ensure the best possible experience out of the box.
+# What is ArtisanROM Ultra Legacy?
+ArtisanROM Ultra Legacy is a work-in-progress custom firmware for Samsung Galaxy devices based on ExtremeROM. It's based on the latest and greatest iteration of Samsung's UX and it also includes additional features and tweaks to ensure the best possible experience out of the box.
 It is based on the UN1CA build system which allows automatic downloading/extraction of the firmware, applying the required patches and generating a flashable zip/tar package for the specified target device.
-ArtisanROM Project Zero supports the S6 series running a Exynos 7420 SoC
+ArtisanROM Ultra Legacy supports both the Note5/S6/S6 Edge/S6 Edge+ running a Exynos 7420 SoC and the Note9/S9/S9+ running a Exynos 9810 SoC
 
 Any form of contribution, suggestions, bug report or feature request for the project will be welcome.
 
@@ -122,4 +122,4 @@ Original UN1CA credits:
 - *All the UN1CA project contributors and testers ❤️*
 
 # Stargazers over time
-[![Stargazers over time](https://starchart.cc/ArtisanROM/ExtremeROM-7420.svg)](https://starchart.cc/ArtisanROM/ExtremeROM-7420)
+[![Stargazers over time](https://starchart.cc/ArtisanROM/ExtremeROM-UltraLegacy.svg)](https://starchart.cc/ArtisanROM/ExtremeROM-UltraLegacy)
