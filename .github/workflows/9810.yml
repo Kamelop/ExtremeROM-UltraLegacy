@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [starlte, star2lte, crownlte]
+        target: [starlte, star2lte, crownlte, r7n]
 
     steps:
 
