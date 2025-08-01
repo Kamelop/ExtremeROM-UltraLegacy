@@ -16,7 +16,7 @@
 #
 
 # Device configuration file for Galaxy Note10 Lite (Exynos) (r7n)
-TARGET_NAME="Galaxy S9 (Exynos)"
+TARGET_NAME="Galaxy Note10 Lite (Exynos)"
 TARGET_CODENAME="r7n"
 TARGET_ASSERT_MODEL=("SM-N770F")
 TARGET_PLATFORM="exynos9810"
