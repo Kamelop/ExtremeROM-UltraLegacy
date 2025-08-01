@@ -16,7 +16,7 @@ Awaiting approval for N/S9 from @cornshiba (XDAForums)
 # What is ArtisanROM Ultra Legacy?
 ArtisanROM Ultra Legacy is a work-in-progress custom firmware for Samsung Galaxy devices based on ExtremeROM. It's based on the latest and greatest iteration of Samsung's UX and it also includes additional features and tweaks to ensure the best possible experience out of the box.
 It is based on the UN1CA build system which allows automatic downloading/extraction of the firmware, applying the required patches and generating a flashable zip/tar package for the specified target device.
-ArtisanROM Ultra Legacy supports both the Note5/S6/S6 Edge/S6 Edge+ running a Exynos 7420 SoC and the Note9/S9/S9+ running a Exynos 9810 SoC
+ArtisanROM Ultra Legacy supports both the Note5/S6/S6 Edge/S6 Edge+ running a Exynos 7420 SoC and the Note9/Note10 Lite/S9/S9+ running a Exynos 9810 SoC
 
 Any form of contribution, suggestions, bug report or feature request for the project will be welcome.
 
