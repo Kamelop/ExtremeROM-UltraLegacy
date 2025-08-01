@@ -89,7 +89,7 @@ read -p "Do you want to begin building now? (y/n): " confirm
 
 if [[ "$confirm" =~ ^[Yy]$ ]]; then
     echo -e "${GREEN}🚀 Starting build...${NC}"
-    run_cmd make_rom
+    run_cmd make_rom --force
     echo -e "${GREEN}✅ Build complete! You can find your ROM in the ${CYAN}out${GREEN} directory.${NC}"
 else
     echo -e "${YELLOW}🕓 Build was skipped. You can run it later using:${NC} ${CYAN}run_cmd make_rom${NC}"
