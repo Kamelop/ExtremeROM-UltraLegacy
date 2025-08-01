@@ -54,11 +54,11 @@ PRINT_HEADER()
     echo    'ui_print(" ");'
     echo    'ui_print("****************************************");'
     echo -n 'ui_print("'
-    echo -n "ExtremeROM $ROM_CODENAME $ROM_VERSION for $TARGET_NAME"
+    echo -n "Welcome to ArtisanROM Ultra Legacy $ROM_VERSION for $TARGET_NAME!"
     echo    '");'
-    echo    'ui_print("ROM by Android-Artisan @XDAforums");'
-    echo    'ui_print("Original ROM by ExtremeXT @XDAforums");'
-    echo    'ui_print("Build system coded by salvo_giangri @XDAforums");'
+    echo    'ui_print("ExtremeROM base developed by ExtremeXT @XDAforums");'
+    echo    'ui_print("Initial UN1CA build system coded by salvo_giangri @XDAforums");'
+    echo    'ui_print("ArtisanROM Ultra Legacy developed by Android-Artisan @XDAforums");'
     echo    'ui_print("****************************************");'
     echo -n 'ui_print("'
     echo -n "One UI version: $ONEUI_VERSION"
@@ -69,6 +69,19 @@ PRINT_HEADER()
     echo -n 'ui_print("'
     echo -n "Target: $(GET_PROP "ro.vendor.build.fingerprint" "$WORK_DIR/vendor/build.prop")"
     echo    '");'
+    echo    'ui_print("****************************************");'
+    echo    'ui_print(" ");'
+    echo    'ui_print(" ");'
+    echo    'ui_print("After installation, it is highly recommended to FORMAT DATA as follows:");'
+    echo    'ui_print("     Wipe -> Format Data");'
+    echo    'ui_print("Hint: FORMAT, not WIPE or FACTORY RESET!");'
+    echo    'ui_print(" ");'
+    echo    'ui_print("If you decide to not format, unexpected issues may occur and given support will be limited.");'
+    echo    'ui_print(" ");'
+    echo    'ui_print("If you wish to proceed with the installer, please press the Volume UP button.");'
+    echo    'ui_print("Otherwise, hold the Volume DOWN + POWER buttons for 7 seconds to force reboot.");'
+    echo    'assert(run_program("/sbin/sh", "-c", "while true; do getevent -lc 1 | grep -q -m1 '\''KEY_VOLUMEUP'\'' && exit 0; sleep 1; done"));'
+    echo    'ui_print("Volume UP detected. Proceeding!");'
     echo    'ui_print("****************************************");'
 }
 
@@ -104,13 +117,13 @@ GENERATE_OP_LIST()
     local HAS_SYSTEM_DLKM=false
 
     [ -f "$TMP_DIR/system.img" ] && HAS_SYSTEM=true
-    [ -f "$TMP_DIR/vendor.img" ] && HAS_VENDOR=false
+    [ -f "$TMP_DIR/vendor.img" ] && HAS_VENDOR=true
     [ -f "$TMP_DIR/product.img" ] && HAS_PRODUCT=true
-    [ -f "$TMP_DIR/system_ext.img" ] && HAS_SYSTEM_EXT=false
-    [ -f "$TMP_DIR/odm.img" ] && HAS_ODM=false
-    [ -f "$TMP_DIR/vendor_dlkm.img" ] && HAS_VENDOR_DLKM=false
-    [ -f "$TMP_DIR/odm_dlkm.img" ] && HAS_ODM_DLKM=false
-    [ -f "$TMP_DIR/system_dlkm.img" ] && HAS_SYSTEM_DLKM=false
+    [ -f "$TMP_DIR/system_ext.img" ] && HAS_SYSTEM_EXT=true
+    [ -f "$TMP_DIR/odm.img" ] && HAS_ODM=true
+    [ -f "$TMP_DIR/vendor_dlkm.img" ] && HAS_VENDOR_DLKM=true
+    [ -f "$TMP_DIR/odm_dlkm.img" ] && HAS_ODM_DLKM=true
+    [ -f "$TMP_DIR/system_dlkm.img" ] && HAS_SYSTEM_DLKM=true
 
     [ -f "$OP_LIST_FILE" ] && rm -f "$OP_LIST_FILE"
     touch "$OP_LIST_FILE"
@@ -324,12 +337,10 @@ GENERATE_UPDATER_SCRIPT()
             fi
             echo    '));'
         fi
+        echo    'show_progress(1, 200);'
         if $HAS_SYSTEM; then
             echo -e "\n# Patch partition system\n"
             echo    'ui_print("Patching system image unconditionally...");'
-            echo -n 'show_progress(0.'
-            echo "9 - $PARTITION_COUNT" | bc -l | tr -d "\n"
-            echo    '00000, 0);'
             echo -n    'block_image_update('
             if [ "$TARGET_SUPER_PARTITION_SIZE" -ne 0 ]; then
                 echo -n    'map_partition("system"), '
@@ -346,7 +357,6 @@ GENERATE_UPDATER_SCRIPT()
         if $HAS_VENDOR; then
             echo -e "\n# Patch partition vendor\n"
             echo    'ui_print("Patching vendor image unconditionally...");'
-            echo    'show_progress(0.100000, 0);'
             echo -n    'block_image_update('
             if [ "$TARGET_SUPER_PARTITION_SIZE" -ne 0 ]; then
                 echo -n    'map_partition("vendor"), '
@@ -363,7 +373,6 @@ GENERATE_UPDATER_SCRIPT()
         if $HAS_PRODUCT; then
             echo -e "\n# Patch partition product\n"
             echo    'ui_print("Patching product image unconditionally...");'
-            echo    'show_progress(0.100000, 0);'
             echo -n    'block_image_update('
             if [ "$TARGET_SUPER_PARTITION_SIZE" -ne 0 ]; then
                 echo -n    'map_partition("product"), '
@@ -380,7 +389,6 @@ GENERATE_UPDATER_SCRIPT()
         if $HAS_SYSTEM_EXT; then
             echo -e "\n# Patch partition system_ext\n"
             echo    'ui_print("Patching system_ext image unconditionally...");'
-            echo    'show_progress(0.100000, 0);'
             echo -n    'block_image_update('
             if [ "$TARGET_SUPER_PARTITION_SIZE" -ne 0 ]; then
                 echo -n    'map_partition("system_ext"), '
@@ -397,7 +405,6 @@ GENERATE_UPDATER_SCRIPT()
         if $HAS_ODM; then
             echo -e "\n# Patch partition odm\n"
             echo    'ui_print("Patching odm image unconditionally...");'
-            echo    'show_progress(0.100000, 0);'
             echo -n    'block_image_update('
             if [ "$TARGET_SUPER_PARTITION_SIZE" -ne 0 ]; then
                 echo -n    'map_partition("odm"), '
@@ -414,7 +421,6 @@ GENERATE_UPDATER_SCRIPT()
         if $HAS_VENDOR_DLKM; then
             echo -e "\n# Patch partition vendor_dlkm\n"
             echo    'ui_print("Patching vendor_dlkm image unconditionally...");'
-            echo    'show_progress(0.100000, 0);'
             echo -n    'block_image_update('
             if [ "$TARGET_SUPER_PARTITION_SIZE" -ne 0 ]; then
                 echo -n    'map_partition("vendor_dlkm"), '
@@ -431,7 +437,6 @@ GENERATE_UPDATER_SCRIPT()
         if $HAS_ODM_DLKM; then
             echo -e "\n# Patch partition odm_dlkm\n"
             echo    'ui_print("Patching odm_dlkm image unconditionally...");'
-            echo    'show_progress(0.100000, 0);'
             echo -n    'block_image_update('
             if [ "$TARGET_SUPER_PARTITION_SIZE" -ne 0 ]; then
                 echo -n    'map_partition("odm_dlkm"), '
@@ -448,7 +453,6 @@ GENERATE_UPDATER_SCRIPT()
         if $HAS_SYSTEM_DLKM; then
             echo -e "\n# Patch partition system_dlkm\n"
             echo    'ui_print("Patching system_dlkm image unconditionally...");'
-            echo    'show_progress(0.100000, 0);'
             echo -n    'block_image_update('
             if [ "$TARGET_SUPER_PARTITION_SIZE" -ne 0 ]; then
                 echo -n    'map_partition("system_dlkm"), '
@@ -465,7 +469,6 @@ GENERATE_UPDATER_SCRIPT()
         if $HAS_PRISM; then
             echo -e "\n# Patch partition prism\n"
             echo    'ui_print("Patching prism image unconditionally...");'
-            echo    'show_progress(0.100000, 0);'
             echo -n    'block_image_update('
             echo -n    '"'
             echo -n    "$TARGET_BOOT_DEVICE_PATH"
@@ -478,7 +481,6 @@ GENERATE_UPDATER_SCRIPT()
         if $HAS_OPTICS; then
             echo -e "\n# Patch partition optics\n"
             echo    'ui_print("Patching optics image unconditionally...");'
-            echo    'show_progress(0.100000, 0);'
             echo -n    'block_image_update('
             echo -n    '"'
             echo -n    "$TARGET_BOOT_DEVICE_PATH"
@@ -493,6 +495,7 @@ GENERATE_UPDATER_SCRIPT()
         else
             echo -e "\n"
         fi
+        echo    'set_progress(0);'
         if $HAS_DTB; then
             echo    'ui_print("Full Patching dtb.img img...");'
             echo -n 'package_extract_file("dtb.img", "'
@@ -534,7 +537,7 @@ GENERATE_UPDATER_SCRIPT()
             cat "$SRC_DIR/target/$TARGET_CODENAME/postinstall.edify"
         fi
 
-        echo    'set_progress(1.000000);'
+        echo    'set_progress(1);'
         echo    'ui_print("****************************************");'
         echo    'ui_print(" ");'
     } >> "$SCRIPT_FILE"
@@ -575,7 +578,7 @@ while read -r i; do
     [ -f "$WORK_DIR/$PARTITION.img" ] && rm -f "$WORK_DIR/$PARTITION.img"
 
     echo "Building $PARTITION.img"
-    if [[ "$PARTITION" == "system" || "$PARTITION" == "prism" || "$PARTITION" == "optics" ]]; then
+    if [[ "$PARTITION" == "prism" || "$PARTITION" == "optics" ]]; then
         FILESYSTEM_TYPE="ext4"
     else
         FILESYSTEM_TYPE="$TARGET_OS_FILE_SYSTEM"
