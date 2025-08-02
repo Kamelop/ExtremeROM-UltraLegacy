@@ -16,7 +16,7 @@
 #
 
 # UN1CA configuration file
-ROM_VERSION="1.0.0-rc1"
+ROM_VERSION="1.0.0-rc2"
 ROM_VERSION+="-$(git rev-parse --short HEAD)"
 ROM_CODENAME="Zero"
 ROM_STATUS="Beta"
