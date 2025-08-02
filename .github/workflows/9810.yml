@@ -1,4 +1,4 @@
-name: Build ExtremeROM 9810
+name: Build ArtisanROM 9810
 
 on:
   workflow_dispatch:
@@ -96,8 +96,8 @@ jobs:
           ZIP_FILE=$(find out -maxdepth 1 -type f -name "*.zip" | head -n 1)
           echo "zip_path=$ZIP_FILE" >> $GITHUB_OUTPUT
 
-      - name: Upload ExtremeROM as Artifact
+      - name: Upload ArtisanROM as Artifact
         uses: actions/upload-artifact@v4.6.2
         with:
-          name: ExtremeROM-${{ matrix.target }}-${{ github.run_id }}
+          name: ArtisanROM-${{ matrix.target }}-${{ github.run_id }}
           path: ${{ steps.find_zip.outputs.zip_path }}
