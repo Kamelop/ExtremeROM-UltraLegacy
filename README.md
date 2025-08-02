@@ -1,5 +1,4 @@
 # ArtisanROM Ultra Legacy
-Awaiting approval for N/S9 from @cornshiba (XDAForums)
 <h1 align="center">
   <img loading="lazy" src="readme-res/banner.png"/>
 </h1>
@@ -11,7 +10,7 @@ Awaiting approval for N/S9 from @cornshiba (XDAForums)
 </p>
 <p align="center">ArtisanROM Ultra Legacy is a work-in-progress custom firmware for Samsung Galaxy devices.</p>
 
-# This is a fork of [ExtremeROM](https://github.com/ExtremeXT/ExtremeROM)
+## This is a fork of [ExtremeROM](https://github.com/ExtremeXT/ExtremeROM)
 
 # What is ArtisanROM Ultra Legacy?
 ArtisanROM Ultra Legacy is a work-in-progress custom firmware for Samsung Galaxy devices based on ExtremeROM. It's based on the latest and greatest iteration of Samsung's UX and it also includes additional features and tweaks to ensure the best possible experience out of the box.
