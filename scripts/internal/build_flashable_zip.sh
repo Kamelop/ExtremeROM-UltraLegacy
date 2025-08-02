@@ -557,7 +557,7 @@ GENERATE_BUILD_INFO()
     true
 }
 
-ZIP_FILE_NAME="ExtremeROM_${ROM_CODENAME}_${ROM_VERSION}_$(date +%Y%m%d)_${TARGET_CODENAME}.zip"
+ZIP_FILE_NAME="ArtisanROM_Ultra-Legacy_${ROM_VERSION}_${TARGET_CODENAME}.zip"
 # ]
 
 echo "Set up tmp dir"
