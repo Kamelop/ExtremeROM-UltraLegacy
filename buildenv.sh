@@ -118,7 +118,7 @@ if [ "$#" -gt 1 ]; then
     done
     return 1
 elif [ "$#" -ne 1 ]; then
-    echo "No target specified. Please choose from the available devices below:"
+    echo "Please choose from the available devices below:"
 
     select SELECTED_TARGET in "${TARGETS[@]}"; do
         if [ -n "$SELECTED_TARGET" ]; then
