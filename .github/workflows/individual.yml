@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [star2lte]
+        target: [r12s]
 
     steps:
 
@@ -99,5 +99,5 @@ jobs:
       - name: Upload ExtremeROM as Artifact
         uses: actions/upload-artifact@v4.6.2
         with:
-          name: ExtremeROM-${{ matrix.target }}-${{ github.run_id }}
+          name: ExtremeROM-${{ matrix.target }}
           path: ${{ steps.find_zip.outputs.zip_path }}
