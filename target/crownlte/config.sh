@@ -15,8 +15,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Device configuration file for Galaxy Note 9 (Exynos) (crownlte)
-TARGET_NAME="Galaxy Note 9 (Exynos)"
+# Device configuration file for Galaxy Note9 (Exynos) (crownlte)
+TARGET_NAME="Galaxy Note9 (Exynos)"
 TARGET_CODENAME="crownlte"
 TARGET_ASSERT_MODEL=("SM-N960F" "SM-N960N")
 TARGET_PLATFORM="exynos9810"
