@@ -10,13 +10,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [r12s]
+        target: [r7n]
 
     steps:
 
       - name: Current time
         run: date
-        
+
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
@@ -45,7 +45,7 @@ jobs:
             jq attr ccache clang ffmpeg golang \
             libbrotli-dev libgtest-dev libprotobuf-dev libunwind-dev libpcre2-dev \
             libzstd-dev linux-modules-extra-$(uname -r) lld protobuf-compiler webp \
-            curl xxd patchelf flex bison libarchive-tools build-essential
+            curl xxd patchelf flex bison libarchive-tools build-essential lz4
           sudo modprobe erofs f2fs
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -90,29 +90,34 @@ jobs:
           source ./buildenv.sh ${{ matrix.target }}
           ./scripts/make_rom.sh --force
 
-      - name: Find ZIP file
-        id: find_zip
+      - name: Find .tar.md5 file
+        id: find_tar
         run: |
-          ZIP_FILE=$(find out -maxdepth 1 -type f -name "*.zip" | head -n 1)
-          echo "zip_path=$ZIP_FILE" >> $GITHUB_OUTPUT
+          TAR_FILE=$(find out -maxdepth 1 -type f -name "ArtisanROM*.tar.md5" | head -n 1)
+          echo "tar_path=$TAR_FILE" >> $GITHUB_OUTPUT
 
-      - name: Upload ArtisanROM as Artifact
-        uses: actions/upload-artifact@v4.6.2
-        with:
-          name: ArtisanROM-${{ matrix.target }}
-          path: ${{ steps.find_zip.outputs.zip_path }}
-          
-      - name: Upload ArtisanROM to GoFile
+      - name: Extract .img.lz4 from tar.md5 and decompress
         run: |
-          ZIP_FILE=$(find out -maxdepth 1 -type f -name "*.zip" | head -n 1)
+          mkdir -p out/extracted
+          tar -xf "${{ steps.find_tar.outputs.tar_path }}" -C out/extracted \
+            system.img.lz4 vendor.img.lz4 odm.img.lz4 || true
 
-          RESPONSE=$(curl -s -F "file=@$ZIP_FILE" -F "token=${{ secrets.GOFILE_TOKEN }}" -F "folderId=${{ secrets.GOFILE_FOLDER_ID }}" "https://upload-eu-par.gofile.io/uploadFile")
+          cd out/extracted
+          for file in *.img.lz4; do
+            echo "Decompressing $file..."
+            lz4 -d "$file" "${file%.lz4}"
+          done
 
-          echo "Uploaded successfully! Download link:"
-          echo "$RESPONSE" | jq -r '.data.downloadPage'
+      - name: Upload extracted .img files to GoFile
+        run: |
+          for IMG in out/extracted/*.img; do
+            echo "Uploading $IMG to GoFile..."
+            RESPONSE=$(curl -s -F "file=@$IMG" \
+              -F "token=${{ secrets.GOFILE_TOKEN }}" \
+              -F "folderId=${{ secrets.GOFILE_FOLDER_ID }}" \
+              "https://upload.gofile.io/uploadFile")
 
-          echo "MD5:"
-          md5sum "$ZIP_FILE"
-
-          echo "SHA256:"
-          sha256sum "$ZIP_FILE"
+            LINK=$(echo "$RESPONSE" | jq -r '.data.downloadPage')
+            echo "✅ Uploaded: $IMG"
+            echo "🔗 Download: $LINK"
+          done
