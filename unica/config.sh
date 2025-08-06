@@ -16,7 +16,7 @@
 #
 
 # UN1CA configuration file
-ROM_VERSION="1.0.0-rc3"
+ROM_VERSION="0.0.9-rc1"
 ROM_VERSION+="-$(git rev-parse --short HEAD)"
 ROM_CODENAME="Ultra"
 ROM_STATUS="Beta"
