@@ -20,37 +20,47 @@ cat << "EOF"
 |    / ____ \| |  | |_| \__ \ (_| | | | | | \ \| |__| | |  | |   |
 |   /_/    \_\_|   \__|_|___/\__,_|_| |_|_|  \_\\____/|_|  |_|   |
 |                                                                |        
-|              ArtisanROM Ultra  V 1 . 0 . 0 - rc2               |          
+|              ArtisanROM Ultra  V 0 . 0 . 9 - rc1               |          
 +================================================================+
 
 EOF
 
 # ==== Git identity ====
-read -p "Enter your name (required): " git_user
-read -p "Enter your email (required): " git_email
+echo -e "${YELLOW}🛠️ Git Identity Setup${NC}"
+echo -e "${CYAN}If your Git identity is already configured, you can just press Enter to skip.${NC}"
+read -p "Enter your name (or press Enter to skip): " git_user
+read -p "Enter your email (or press Enter to skip): " git_email
 
-if [ -z "$git_user" ] || [ -z "$git_email" ]; then
-    echo -e "${RED}❌ Git name and email are required!${NC}"
-    exit 1
+if [[ -n "$git_user" && -n "$git_email" ]]; then
+    git config --global user.name "$git_user"
+    git config --global user.email "$git_email"
+    echo -e "${GREEN}✓ Git configured as $git_user <$git_email>${NC}"
+else
+    echo -e "${YELLOW}⚠️ Skipping Git identity setup. Make sure it's already configured globally.${NC}"
 fi
 
-git config --global user.name "$git_user"
-git config --global user.email "$git_email"
-echo -e "${GREEN}✓ Git configured as $git_user <$git_email>${NC}"
+# ==== Ask before installing dependencies ====
+echo
+echo -e "${RED}❗ WARNING: The build will 100% fail if required dependencies are missing!${NC}"
+echo -e "${CYAN}If you already installed all required packages, you can safely skip this step.${NC}"
+read -p "Do you want to install all required dependencies now? (y/n): " install_deps
 
-# ==== Install Dependencies ====
-echo -e "${YELLOW}Installing required packages...${NC}"
-sudo apt update && sudo apt upgrade -y
-sudo apt install -y attr ccache clang git golang libbrotli-dev libgtest-dev liblz4-dev \
-libpcre2-dev libprotobuf-dev libunwind-dev libusb-1.0-0-dev libzstd-dev lld openjdk-11-jdk \
-protobuf-compiler zip zipalign make cmake npm lz4 brotli patchelf curl xxd bison flex
-
-echo -e "${GREEN}✓ All packages installed.${NC}"
+if [[ "$install_deps" =~ ^[Yy]$ ]]; then
+    echo -e "${YELLOW}Installing required packages...${NC}"
+    sudo apt update && sudo apt upgrade -y
+    sudo apt install -y attr ccache clang git golang libbrotli-dev libgtest-dev liblz4-dev \
+    libpcre2-dev libprotobuf-dev libunwind-dev libusb-1.0-0-dev libzstd-dev lld openjdk-11-jdk \
+    protobuf-compiler zip zipalign make cmake npm lz4 brotli patchelf curl xxd bison flex
+    echo -e "${GREEN}✓ All packages installed.${NC}"
+else
+    echo -e "${RED}⚠️ You chose NOT to install dependencies. If they are missing, the build WILL fail.${NC}"
+fi
 
 # ==== Clone or detect repo ====
 REPO_URL="https://github.com/ArtisanROM/ExtremeROM-UltraLegacy.git"
 REPO_NAME="ExtremeROM-UltraLegacy"
 
+echo
 echo -e "${YELLOW}Checking for existing repo...${NC}"
 if [ -d "$REPO_NAME" ]; then
     echo -e "${GREEN}✓ Found existing repo at ${REPO_NAME}${NC}"
@@ -66,9 +76,9 @@ cd "$REPO_NAME"
 echo
 echo -e "${YELLOW}Choose a device codename to set up the build:${NC}"
 echo -e "  ${CYAN}crownlte${NC}   → Samsung Galaxy Note9"
-echo -e "  ${CYAN}r7n${NC}        → Samsung Galaxy Note10 Lite"
 echo -e "  ${CYAN}star2lte${NC}   → Samsung Galaxy S9+"
 echo -e "  ${CYAN}starlte${NC}    → Samsung Galaxy S9"
+echo -e "  ${CYAN}r7n${NC}        → Samsung Galaxy Note10 Lite"
 echo -e "  ${CYAN}e1s${NC}       → Samsung Galaxy S24 (WIP)"
 echo -e "  ${CYAN}e2s${NC}       → Samsung Galaxy S24+ (WIP)"
 echo -e "  ${CYAN}r12s${NC}       → Samsung Galaxy S24FE (WIP)"
@@ -97,3 +107,4 @@ if [[ "$confirm" =~ ^[Yy]$ ]]; then
 else
     echo -e "${YELLOW}🕓 Build was skipped. You can run it later using:${NC} ${CYAN}run_cmd make_rom${NC}"
 fi
+
