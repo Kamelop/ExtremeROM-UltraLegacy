@@ -54,7 +54,7 @@ PRINT_HEADER()
     echo    'ui_print(" ");'
     echo    'ui_print("****************************************");'
     echo -n 'ui_print("'
-    echo -n "ExtremeROM $ROM_CODENAME $ROM_VERSION for $TARGET_NAME"
+    echo -n "ArtisanROM Ultra V$ROM_VERSION for $TARGET_NAME"
     echo    '");'
     echo    'ui_print("ROM by Android-Artisan and base ROM by ExtremeXT @XDAforums");'
     echo    'ui_print("Build system coded by salvo_giangri @XDAforums");'
@@ -557,7 +557,7 @@ GENERATE_BUILD_INFO()
     true
 }
 
-ZIP_FILE_NAME="ArtisanROM_Ultra-Legacy_${ROM_VERSION}_${TARGET_CODENAME}.zip"
+ZIP_FILE_NAME="ArtisanROM_Ultra_V${ROM_VERSION}_${TARGET_CODENAME}.zip"
 # ]
 
 echo "Set up tmp dir"
