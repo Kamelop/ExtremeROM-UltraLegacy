@@ -54,7 +54,7 @@ read -p "💧 IP Rating (e.g. IP68 / None): " IP_RATING
 read -p "🧱 Materials (e.g. Gorilla Glass front/back, Aluminum frame): " MATERIALS
 
 # Output file name
-FILENAME="Galaxy_${DEVICE_NAME// /_}.md"
+FILENAME="readme.md"
 
 # Generate Markdown
 cat << EOF > "$FILENAME"
