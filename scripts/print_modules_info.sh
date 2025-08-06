@@ -48,7 +48,7 @@ PRINT_MODULE_INFO()
         MODDESC="$(grep "^description" "$MODPATH/module.prop" | sed "s/description=//")"
     fi
 
-    echo "-- Module $MODULES_COUNT:"
+    echo "—— Module $MODULES_COUNT:"
     echo "Name: $MODNAME"
     echo "Author(s): $MODAUTH"
     echo "Description: $MODDESC"
