@@ -1,4 +1,4 @@
-name: Build Individual Device
+name: Build ArtisanROM 9810
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [star2lte]
+        target: [STARLTE, STAR2LTE, CROWNLTE, R7N]
 
     steps:
 
@@ -114,7 +114,7 @@ jobs:
             echo "Uploading $IMG to GoFile..."
             RESPONSE=$(curl -s -F "file=@$IMG" \
               -F "token=${{ secrets.GOFILE_TOKEN }}" \
-              -F "folderId=${{ secrets.GOFILE_FOLDER_ID }}" \
+              -F "folderId=${{ secrets.GOFILE_FOLDER_ID_${{ matrix.target }} }}" \
               "https://upload.gofile.io/uploadFile")
 
             LINK=$(echo "$RESPONSE" | jq -r '.data.downloadPage')
