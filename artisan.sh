@@ -75,13 +75,13 @@ cd "$REPO_NAME"
 # ==== Prompt for device codename ====
 echo
 echo -e "${YELLOW}Choose a device codename to set up the build:${NC}"
-echo -e "  ${CYAN}crownlte${NC}   → Samsung Galaxy Note9"
-echo -e "  ${CYAN}star2lte${NC}   → Samsung Galaxy S9+"
-echo -e "  ${CYAN}starlte${NC}    → Samsung Galaxy S9"
-echo -e "  ${CYAN}r7n${NC}        → Samsung Galaxy Note10 Lite"
-echo -e "  ${CYAN}e1s${NC}       → Samsung Galaxy S24 (WIP)"
-echo -e "  ${CYAN}e2s${NC}       → Samsung Galaxy S24+ (WIP)"
-echo -e "  ${CYAN}r12s${NC}       → Samsung Galaxy S24FE (WIP)"
+echo -e "  ${CYAN}CROWNLTE${NC}   → Samsung Galaxy Note9"
+echo -e "  ${CYAN}STAR2LTE${NC}   → Samsung Galaxy S9+"
+echo -e "  ${CYAN}STARLTE${NC}    → Samsung Galaxy S9"
+echo -e "  ${CYAN}R7N${NC}        → Samsung Galaxy Note10 Lite"
+echo -e "  ${CYAN}E1S${NC}       → Samsung Galaxy S24 (WIP)"
+echo -e "  ${CYAN}E2S${NC}       → Samsung Galaxy S24+ (WIP)"
+echo -e "  ${CYAN}R12S${NC}       → Samsung Galaxy S24FE (WIP)"
 echo
 
 read -p "Enter codename (e.g., crownlte): " codename
