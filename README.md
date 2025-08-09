@@ -35,7 +35,6 @@ Any form of contribution, suggestions, bug report or feature request for the pro
 - Full CSC support
 - Adaptive Refresh Rate support (for some models)
 - Multi-User support
-- Stock models in Settings and user apps
 - High end animations
 - Native/live blur support
 - Debloated from useless system services/additional apps
