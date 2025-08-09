@@ -27,13 +27,11 @@ Any form of contribution, suggestions, bug report or feature request for the pro
 - Heavily DeKnoxed
 - Full SELinux Support
 - Full Galaxy AI support
-- Completely upstreamed kernels for all officially supported devices
 - Now Brief Support
 - Adaptive color tone support
 - Super HDR support
 - Adaptive Brightness support
 - Full CSC support
-- Adaptive Refresh Rate support (for some models)
 - Multi-User support
 - High end animations
 - Native/live blur support
@@ -43,10 +41,9 @@ Any form of contribution, suggestions, bug report or feature request for the pro
 - Extra mods (Disable Secure Flag, OutDoor mode, more coming soon)
 - Extra CSC features (Call recording, Network speed in status bar, 5GHz Hotspot)
 - Countless other small optimizations
-- More that I can't remember right now and will have to be added in the future
 
 # Bugs
-See the <a href="https://github.com/ExtremeXT/ExtremeROM/issues">⚠ Issues</a> tab
+See the <a href="https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/issues">⚠ Issues</a> tab
 
 # Licensing
 This project is licensed under the terms of the [GNU General Public License v3.0](LICENSE). External dependencies might be distributed under a different license, such as:
@@ -77,6 +74,14 @@ This project is licensed under the terms of the [GNU General Public License v3.0
 ```
 
 # Credits
+- **[ExtremeXT](https://github.com/ExtremeXT)** - For the ExtremeROM build system, and inspiration.
+- **[Salvo Giangreco](https://github.com/salvogiangri)** - For the the UN1CA build system and mega inspiration to start android porting.
+- **[ElVettorato](https://github.com/gabrl12345678900)** - For testing ArtisanROM Ultra on his star2lte (S9+) [Yet to get a reply]
+- **[Boyan](https://github.com/sexynos990)** - 🥰 Idk [dupa reference](https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/blob/3ab907edb3d59c260eec11c9cb6051d0a9b1e0e0/readme-res/supadupa.png)
+- **[Yacine](https://github.com/Yacinegti-DZ)** - For all the support, recomendations and more!
+- I forgor (intentional spelling mitsake) the rest. i lost most my braincells with my 180+ commits in the fork lol. place an issue if i forgot you 
+
+# Original ExtremeROM credits:
 A big thanks goes to the following for their invaluable contributions in no particular order (MORE INFO AND PEOPLE: TO BE WRITTEN)
 - **[salvogiangri](https://github.com/salvogiangri)** for the UN1CA build system, OneUI patches, and general help and support while developing
 - **[Ocin4Ever](https://github.com/Ocin4Ever)** for a lot of help especially on smali, advice and emotional support :D
@@ -107,7 +112,7 @@ A big thanks goes to the following for their invaluable contributions in no part
 - **@april865** (TG) for ExtremeROM Nexus banner
 - And everyone else who aided in testing, wiki, translations etc!
 
-Original UN1CA credits:
+# Original UN1CA credits:
 - **[ShaDisNX255](https://github.com/ShaDisNX255)** for his help, time and for his [NcX ROM](https://github.com/ShaDisNX255/NcX_Stock) which inspired this project
 - **[DavidArsene](https://github.com/DavidArsene)** for his help and time
 - **[paulowesll](https://github.com/paulowesll)** for his help and support
