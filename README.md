@@ -77,7 +77,8 @@ This project is licensed under the terms of the [GNU General Public License v3.0
 - **[ExtremeXT](https://github.com/ExtremeXT)** - For the ExtremeROM build system, and inspiration.
 - **[Salvo Giangreco](https://github.com/salvogiangri)** - For the the UN1CA build system and mega inspiration to start android porting.
 - **[ElVettorato](https://github.com/gabrl12345678900)** - For testing ArtisanROM Ultra on his star2lte (S9+) [Yet to get a reply]
-- **[Boyan](https://github.com/sexynos990)** - 🥰 Idk [dupa reference](https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/blob/3ab907edb3d59c260eec11c9cb6051d0a9b1e0e0/readme-res/supadupa.png)
+- **[Mesazane](https://github.com/mesazane)** - 🥰 Idk [dupa reference](https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/blob/3ab907edb3d59c260eec11c9cb6051d0a9b1e0e0/readme-res/supadupa.png)
+- **[Boyan](https://github.com/sexynos990)** - also 🥰 Idk [also dupa reference](https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/blob/3ab907edb3d59c260eec11c9cb6051d0a9b1e0e0/readme-res/supadupa.png)
 - **[Yacine](https://github.com/Yacinegti-DZ)** - For all the support, recomendations and more!
 - I forgor (intentional spelling mitsake) the rest. i lost most my braincells with my 180+ commits in the fork lol. place an issue if i forgot you 
 
