@@ -15,7 +15,7 @@
 # What is ArtisanROM Ultra?
 ArtisanROM Ultra is a work-in-progress custom firmware for Samsung Galaxy devices based on ExtremeROM. It's based on the latest and greatest iteration of Samsung's UX and it also includes additional features and tweaks to ensure the best possible experience out of the box.
 It is based on the UN1CA build system which allows automatic downloading/extraction of the firmware, applying the required patches and generating a flashable zip/tar package for the specified target device.
-ArtisanROM Ultra Legacy supports both the Note5/S6/S6 Edge/S6 Edge+ running a Exynos 7420 SoC(WIP) and the Note9/Note10 Lite/S9/S9+ running a Exynos 9810 SoC
+ArtisanROM Ultra Legacy will support both the Note5/S6/S6 Edge/S6 Edge+ running an Exynos 7420 SoC(WIP) and the Note9/Note10 Lite/S9/S9+ running an Exynos 9810 SoC
 
 Any form of contribution, suggestions, bug report or feature request for the project will be welcome.
 
@@ -74,13 +74,10 @@ This project is licensed under the terms of the [GNU General Public License v3.0
 ```
 
 # Credits
-- **[ExtremeXT](https://github.com/ExtremeXT)** - For the ExtremeROM build system, and inspiration.
-- **[Salvo Giangreco](https://github.com/salvogiangri)** - For the the UN1CA build system and mega inspiration to start android porting.
-- **[ElVettorato](https://github.com/gabrl12345678900)** - For testing ArtisanROM Ultra on his star2lte (S9+) [Yet to get a reply]
-- **[Mesazane](https://github.com/mesazane)** - 🥰 Idk [dupa reference](https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/blob/3ab907edb3d59c260eec11c9cb6051d0a9b1e0e0/readme-res/supadupa.png)
-- **[Boyan](https://github.com/sexynos990)** - also 🥰 Idk [also dupa reference](https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/blob/3ab907edb3d59c260eec11c9cb6051d0a9b1e0e0/readme-res/supadupa.png)
+- **[ExtremeXT](https://github.com/ExtremeXT)** - For the ExtremeROM the base of this repo.
+- **[Salvo Giangreco](https://github.com/salvogiangri)** - For the the UN1CA build system and the inspiration to start android porting.
 - **[Yacine](https://github.com/Yacinegti-DZ)** - For all the support, recomendations and more!
-- I forgor (intentional spelling mitsake) the rest. i lost most my braincells with my 180+ commits in the fork lol. place an issue if i forgot you 
+- I forgot the rest. i lost most my braincells with my 180+ commits in the fork lol. place an issue if i forgot you 
 
 # Original ExtremeROM credits:
 A big thanks goes to the following for their invaluable contributions in no particular order (MORE INFO AND PEOPLE: TO BE WRITTEN)
