@@ -1,6 +1,5 @@
-# ArtisanROM Ultra
 <h1 align="center">
-  <img loading="lazy" src="readme-res/banner.png"/>
+  <img loading="eager" src="readme-res/banner.png"/>
 </h1>
 <p align="center">
   <a href="https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/blob/fifteen/LICENSE"><img loading="lazy" src="https://img.shields.io/github/license/ArtisanROM/ExtremeROM-UltraLegacy?style=for-the-badge&logo=github"/></a>
@@ -15,7 +14,7 @@
 # What is ArtisanROM Ultra?
 ArtisanROM Ultra is a work-in-progress custom firmware for Samsung Galaxy devices based on ExtremeROM. It's based on the latest and greatest iteration of Samsung's UX and it also includes additional features and tweaks to ensure the best possible experience out of the box.
 It is based on the UN1CA build system which allows automatic downloading/extraction of the firmware, applying the required patches and generating a flashable zip/tar package for the specified target device.
-ArtisanROM Ultra Legacy will support both the Note5/S6/S6 Edge/S6 Edge+ running an Exynos 7420 SoC(WIP) and the Note9/Note10 Lite/S9/S9+ running an Exynos 9810 SoC
+ArtisanROM Ultra will support the Note9/Note10 Lite/S9/S9+ running an Exynos 9810 SoC
 
 Any form of contribution, suggestions, bug report or feature request for the project will be welcome.
 
@@ -79,7 +78,8 @@ This project is licensed under the terms of the [GNU General Public License v3.0
 - **[Yacine](https://github.com/Yacinegti-DZ)** - For all the support, recomendations and more!
 - **[ElVettorato](https://github.com/gabrl12345678900)** - For testing ArtisanROM Ultra on his star2lte (S9+).
 - **[Oskar](https://github.com/osrott61-gh)** - For making PR #2 to fix the README
-- I forgot the rest. I lost most my braincells with my 180+ commits in the fork lol. place an issue if I forgot you 
+- **[ChatGPT](https://chatgpt.com)** - For generating the banner
+- I forgot the rest. I lost most my braincells with my 200+ commits in the fork lol. place an issue if I forgot you 
 
 # Original ExtremeROM credits:
 A big thanks goes to the following for their invaluable contributions in no particular order (MORE INFO AND PEOPLE: TO BE WRITTEN)
