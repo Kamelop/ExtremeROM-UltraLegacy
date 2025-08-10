@@ -1,6 +1,5 @@
-# ArtisanROM Ultra
 <h1 align="center">
-  <img loading="lazy" src="readme-res/banner.png"/>
+  <img loading="eager" src="readme-res/banner.png"/>
 </h1>
 <p align="center">
   <a href="https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/blob/fifteen/LICENSE"><img loading="lazy" src="https://img.shields.io/github/license/ArtisanROM/ExtremeROM-UltraLegacy?style=for-the-badge&logo=github"/></a>
