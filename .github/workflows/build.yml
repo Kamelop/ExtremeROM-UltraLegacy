@@ -14,9 +14,6 @@ jobs:
 
     steps:
 
-    - name: Current time
-      run: date
-
     - name: Checkout repo
       uses: actions/checkout@v4
       with:
