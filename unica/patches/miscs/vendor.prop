@@ -1,2 +1,2 @@
 # Disable OEM unlock toggle
-ro.oem_unlock_supported=1
+ro.oem_unlock_supported=0
