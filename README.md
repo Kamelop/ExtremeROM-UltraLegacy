@@ -77,7 +77,9 @@ This project is licensed under the terms of the [GNU General Public License v3.0
 - **[ExtremeXT](https://github.com/ExtremeXT)** - For the ExtremeROM the base of this repo.
 - **[Salvo Giangreco](https://github.com/salvogiangri)** - For the the UN1CA build system and the inspiration to start android porting.
 - **[Yacine](https://github.com/Yacinegti-DZ)** - For all the support, recomendations and more!
-- I forgot the rest. i lost most my braincells with my 180+ commits in the fork lol. place an issue if i forgot you 
+- **[ElVettorato](https://github.com/gabrl12345678900)** - For testing ArtisanROM Ultra on his star2lte (S9+).
+- **[Oskar](https://github.com/osrott61-gh)** - For making PR #2 to fix the README
+- I forgot the rest. I lost most my braincells with my 180+ commits in the fork lol. place an issue if I forgot you 
 
 # Original ExtremeROM credits:
 A big thanks goes to the following for their invaluable contributions in no particular order (MORE INFO AND PEOPLE: TO BE WRITTEN)
