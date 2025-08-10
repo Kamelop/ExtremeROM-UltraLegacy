@@ -1,5 +1,10 @@
 name: Update prebuilt blobs
 
+# ✅ Allow PR creation
+permissions:
+  contents: write
+  pull-requests: write
+
 on:
   workflow_dispatch:
   schedule:
@@ -88,19 +93,21 @@ jobs:
 
       - name: Update prebuilt blobs
         run: |
-          source ./buildenv.sh zerolte
+          source ./buildenv.sh STARLTE
           ./scripts/internal/update_prebuilt_blobs.sh ${{ matrix.path }}
-          echo "PDA_BUILD=$(cat ./${{ matrix.path }}/.current | cut -d "/" -f 1)" >> $GITHUB_ENV
+          echo "PDA_BUILD=$(cat ./${{ matrix.path }}/.current | cut -d '/' -f 1)" >> $GITHUB_ENV
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
+          # ✅ Use PAT for forks, or GITHUB_TOKEN for own repo
+          token: ${{ secrets.PAT_TOKEN || github.token }}
           add-paths: |
             ${{ matrix.path }}
           commit-message: '${{ matrix.path }}: update blobs to ${{ env.PDA_BUILD }}'
           committer: 'Android Artisan <romartisan2025@gmail.com>'
           author: 'Android Artisan <romartisan2025@gmail.com>'
-          branch: '${{ matrix.path }}'
+          branch: 'update/${{ matrix.path }}'
           delete-branch: true
           title: 'Update ${{ matrix.path }} blobs to ${{ env.PDA_BUILD }}'
-          body: ''
+          body: 'Automated update of prebuilt blobs for ${{ matrix.module }}.'
