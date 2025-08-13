@@ -1,4 +1,4 @@
-name: Build ArtisanROM 9810
+name: Build ArtisanROM 2400
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [STARLTE, STAR2LTE, CROWNLTE, R7N]
+        target: [E1S, E2S, R12S]
 
     steps:
 
@@ -86,50 +86,3 @@ jobs:
       run: |
         source ./buildenv.sh ${{ matrix.target }}
         ./scripts/make_rom.sh --force
-
-    - name: Find .tar.md5 file
-      id: find_tar
-      run: |
-        TAR_FILE=$(find out -maxdepth 1 -type f -name "ArtisanROM*.tar.md5" | head -n 1)
-        echo "tar_path=$TAR_FILE" >> $GITHUB_OUTPUT
-
-    - name: Extract .img.lz4 from tar.md5 and decompress
-      run: |
-        mkdir -p out/extracted
-        tar -xf "${{ steps.find_tar.outputs.tar_path }}" -C out/extracted \
-          system.img.lz4 vendor.img.lz4 odm.img.lz4 || true
-
-        cd out/extracted
-        for file in *.img.lz4; do
-          echo "Decompressing $file..."
-          lz4 -d "$file" "${file%.lz4}"
-        done
-
-    - name: Upload extracted .img files to GoFile
-      env:
-        GOFILE_TOKEN: ${{ secrets.GOFILE_TOKEN }}
-        GOFILE_FOLDER_ID_STARLTE: ${{ secrets.GOFILE_FOLDER_ID_STARLTE }}
-        GOFILE_FOLDER_ID_STAR2LTE: ${{ secrets.GOFILE_FOLDER_ID_STAR2LTE }}
-        GOFILE_FOLDER_ID_CROWNLTE: ${{ secrets.GOFILE_FOLDER_ID_CROWNLTE }}
-        GOFILE_FOLDER_ID_R7N: ${{ secrets.GOFILE_FOLDER_ID_R7N }}
-      run: |
-        case "${{ matrix.target }}" in
-          "STARLTE")    FOLDER_ID="$GOFILE_FOLDER_ID_STARLTE" ;;
-          "STAR2LTE")   FOLDER_ID="$GOFILE_FOLDER_ID_STAR2LTE" ;;
-          "CROWNLTE")   FOLDER_ID="$GOFILE_FOLDER_ID_CROWNLTE" ;;
-          "R7N")        FOLDER_ID="$GOFILE_FOLDER_ID_R7N" ;;
-          *) echo "Unknown device ${TARGET}" && exit 1 ;;
-        esac
-
-        for IMG in out/extracted/*.img; do
-          echo "Uploading $IMG to GoFile..."
-          RESPONSE=$(curl -s -F "file=@$IMG" \
-            -F "token=$GOFILE_TOKEN" \
-            -F "folderId=$FOLDER_ID" \
-            "https://upload.gofile.io/uploadFile")
-
-          LINK=$(echo "$RESPONSE" | jq -r '.data.downloadPage')
-          echo "✅ Uploaded: $IMG"
-          echo "🔗 Download: $LINK"
-        done
-
