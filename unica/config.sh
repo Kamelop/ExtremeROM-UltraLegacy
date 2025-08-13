@@ -16,10 +16,10 @@
 #
 
 # UN1CA configuration file
-ROM_VERSION="0.0.9-rc3"
+ROM_VERSION="0.1.0-rc3"
 ROM_VERSION+=""
 ROM_CODENAME="Ultra"
-ROM_STATUS="Almost Stable"
+ROM_STATUS="Pre Release"
 
 # Source ROM firmware
 case "$TARGET_SINGLE_SYSTEM_IMAGE" in
