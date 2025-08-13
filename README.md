@@ -6,10 +6,11 @@
   <a href="https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/commits/fifteen"><img loading="lazy" src="https://img.shields.io/github/last-commit/ArtisanROM/ExtremeROM-UltraLegacy/fifteen?style=for-the-badge"/></a>
   <a href="https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/stargazers"><img loading="lazy" src="https://img.shields.io/github/stars/ArtisanROM/ExtremeROM-UltraLegacy?style=for-the-badge"/></a>
   <a href="https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/graphs/contributors"><img loading="lazy" src="https://img.shields.io/github/contributors/ArtisanROM/ExtremeROM-UltraLegacy?style=for-the-badge"/></a>
+  <a href="https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/actions/workflows/9810.yml"><img loading="lazy" src="https://img.shields.io/github/actions/workflow/status/ArtisanROM/ExtremeROM-UltraLegacy/9810.yml?branch=fifteen&style=for-the-badge&logo=githubactions&logoColor=white&label=Build%20ArtisanROM%209810"/>
+  </a>
 </p>
-<p align="center">ArtisanROM Ultra is a work-in-progress custom firmware for Samsung Galaxy devices.</p>
 
-[![Build ArtisanROM 9810](https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/actions/workflows/9810.yml/badge.svg?branch=fifteen&event=workflow_dispatch)](https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/actions/workflows/9810.yml)
+<p align="center">ArtisanROM Ultra is a work-in-progress custom firmware for Samsung Galaxy devices.</p>
 
 # What is ArtisanROM Ultra?
 ArtisanROM Ultra is a work-in-progress custom firmware for Samsung Galaxy devices based on ExtremeROM. It's based on the latest and greatest iteration of Samsung's UX and it also includes additional features and tweaks to ensure the best possible experience out of the box.
