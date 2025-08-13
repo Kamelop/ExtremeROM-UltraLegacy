@@ -1,4 +1,4 @@
-name: Build ArtisanROM 2400
+name: Build ArtisanROM
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [E1S, E2S, R12S]
+        target: [STARLTE, STAR2LTE, CROWNLTE, R7N]
 
     steps:
 
@@ -86,3 +86,58 @@ jobs:
       run: |
         source ./buildenv.sh ${{ matrix.target }}
         ./scripts/make_rom.sh --force
+
+    - name: Upload to GoFile
+      env:
+        GOFILE_TOKEN: ${{ secrets.GOFILE_TOKEN }}
+        GOFILE_FOLDER_ID_STARLTE: ${{ secrets.GOFILE_FOLDER_ID_STARLTE }}
+        GOFILE_FOLDER_ID_STAR2LTE: ${{ secrets.GOFILE_FOLDER_ID_STAR2LTE }}
+        GOFILE_FOLDER_ID_CROWNLTE: ${{ secrets.GOFILE_FOLDER_ID_CROWNLTE }}
+        GOFILE_FOLDER_ID_R7N: ${{ secrets.GOFILE_FOLDER_ID_R7N }}
+      run: |
+        # 1. Find the TAR file
+        TAR_FILE=$(find out -maxdepth 1 -type f -name "ArtisanROM*.tar.md5" | head -n 1)
+        if [ -z "$TAR_FILE" ]; then
+          echo "❌ No .tar.md5 file found in ./out"
+          exit 1
+        fi
+        echo "✅ Found TAR: $TAR_FILE"
+
+        # 2. Extract and decompress
+        mkdir -p out/extracted
+        tar -xf "$TAR_FILE" -C out/extracted system.img.lz4 vendor.img.lz4 odm.img.lz4 || true
+
+        cd out/extracted
+        if ! ls *.img.lz4 >/dev/null 2>&1; then
+          echo "❌ No .img.lz4 files found in TAR"
+          exit 1
+        fi
+
+        for file in *.img.lz4; do
+          echo "📦 Decompressing $file..."
+          lz4 -d "$file" "${file%.lz4}"
+        done
+        cd ../..
+
+        # 3. Choose correct GoFile folder
+        case "${{ matrix.target }}" in
+          "STARLTE")    FOLDER_ID="$GOFILE_FOLDER_ID_STARLTE" ;;
+          "STAR2LTE")   FOLDER_ID="$GOFILE_FOLDER_ID_STAR2LTE" ;;
+          "CROWNLTE")   FOLDER_ID="$GOFILE_FOLDER_ID_CROWNLTE" ;;
+          "R7N")        FOLDER_ID="$GOFILE_FOLDER_ID_R7N" ;;
+          *) echo "❌ Unknown device: ${{ matrix.target }}" && exit 1 ;;
+        esac
+
+        # 4. Upload each IMG
+        for IMG in out/extracted/*.img; do
+          echo "⬆️ Uploading $IMG to GoFile..."
+          RESPONSE=$(curl -s -F "file=@$IMG" \
+            -F "token=$GOFILE_TOKEN" \
+            -F "folderId=$FOLDER_ID" \
+            "https://upload.gofile.io/uploadFile")
+
+          LINK=$(echo "$RESPONSE" | jq -r '.data.downloadPage')
+          echo "✅ Uploaded: $IMG"
+          echo "🔗 Download: $LINK"
+        done
+
