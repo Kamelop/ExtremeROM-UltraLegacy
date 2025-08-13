@@ -170,7 +170,7 @@
     <local name="LOW_PERFORMANCE_RECORDING_VI" value="true" />
     <local name="SUPPORT_CAMERA_APP_ENTRY_PERFORMANCE" value="true" />
     <local name="USE_KEY_SCREEN_INFLATION_DELAY" value="true" />
-    <local name="MAX_POST_PROCESSING_COUNT_FOR_CAPTURE" value="10" />
+    <local name="MAX_POST_PROCESSING_COUNT_FOR_CAPTURE" value="11" />
     <local name="SUPPORT_SUPER_LARGE_RESOLUTION_LOW_PERFORMANCE" value="true" />
     <local name="SUPPORT_BACK_HDR_SUPER" value="true"/>
     <local name="SUPPORT_FRONT_HDR_SUPER" value="true"/>
