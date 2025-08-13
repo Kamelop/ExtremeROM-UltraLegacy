@@ -93,6 +93,6 @@ sed -i '
     $x;$G;/\(.*\),/!H;//!{$!d
 };  $!x;$s//\1/;s/^\n//' "$MANIFEST_FILE"
 
-echo "Manifest saved in $MANIFEST_FILE"
+echo "OTA manifest saved in $MANIFEST_FILE"
 
 exit 0
