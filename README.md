@@ -11,6 +11,10 @@
 </p>
 
 <p align="center">ArtisanROM Ultra is a work-in-progress custom firmware for Samsung Galaxy devices.</p>
+<p align="center">
+  <a href="https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/wiki">📖 Wiki</a>
+  <a href="https://github.com/ArtisanROM/ExtremeROM-UltraLegacy/blob/fifteen/MAINTAINERS">🧑‍💻 Maintainers</a>
+</p>
 
 # What is ArtisanROM Ultra?
 ArtisanROM Ultra is a work-in-progress custom firmware for Samsung Galaxy devices based on ExtremeROM. It's based on the latest and greatest iteration of Samsung's UX and it also includes additional features and tweaks to ensure the best possible experience out of the box.
