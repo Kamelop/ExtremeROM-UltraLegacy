@@ -19,7 +19,7 @@
 ROM_VERSION="0.1.0-rc1"
 ROM_VERSION+=""
 ROM_CODENAME="Ultra"
-ROM_STATUS="Pre Release"
+ROM_STATUS="BETA"
 
 # Source ROM firmware
 case "$TARGET_SINGLE_SYSTEM_IMAGE" in
