@@ -1,4 +1,4 @@
-name: Build ArtisanROM 7420
+name: Build ArtisanROM 9810
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [ZEROLTE, ZEROFLTE, ZENLTE, NOBLELTE]
+        target: [M33X]
 
     steps:
 
@@ -80,64 +80,24 @@ jobs:
     - name: Extract target firmware
       run: |
         source ./buildenv.sh ${{ matrix.target }}
-        SOURCE_FIRMWARE="$TARGET_FIRMWARE" ./scripts/extract_7420_fw.sh --force
+        SOURCE_FIRMWARE="$TARGET_FIRMWARE" ./scripts/extract_fw.sh --force
 
     - name: Build ROM
       run: |
         source ./buildenv.sh ${{ matrix.target }}
         ./scripts/make_rom.sh --force
 
-    - name: Upload to GoFile
-      env:
-        GOFILE_TOKEN: ${{ secrets.GOFILE_TOKEN }}
-        GOFILE_FOLDER_ID_ZEROLTE: ${{ secrets.GOFILE_FOLDER_ID_ZEROLTE }}
-        GOFILE_FOLDER_ID_ZEROFLTE: ${{ secrets.GOFILE_FOLDER_ID_ZEROFLTE }}
-        GOFILE_FOLDER_ID_ZENLTE: ${{ secrets.GOFILE_FOLDER_ID_ZENLTE }}
-        GOFILE_FOLDER_ID_NOBLELTE: ${{ secrets.GOFILE_FOLDER_ID_NOBLELTE }}
-      run: |
-        # 1. Find the TAR file
-        TAR_FILE=$(find out -maxdepth 1 -type f -name "ArtisanROM*.tar.md5" | head -n 1)
-        if [ -z "$TAR_FILE" ]; then
-          echo "❌ No .tar.md5 file found in ./out"
-          exit 1
-        fi
-        echo "✅ Found TAR: $TAR_FILE"
+      - name: Upload to GoFile
+        run: |
+          ZIP_FILE=$(find out -maxdepth 1 -type f -name "*.zip" | head -n 1)
 
-        # 2. Extract and decompress
-        mkdir -p out/extracted
-        tar -xf "$TAR_FILE" -C out/extracted system.img.lz4 vendor.img.lz4 odm.img.lz4 || true
+          RESPONSE=$(curl -s -F "file=@$ZIP_FILE" -F "token=${{ secrets.GOFILE_TOKEN }}" -F "folderId=${{ secrets.GOFILE_FOLDER_ID_M33X }}" "https://upload-eu-par.gofile.io/uploadFile")
 
-        cd out/extracted
-        if ! ls *.img.lz4 >/dev/null 2>&1; then
-          echo "❌ No .img.lz4 files found in TAR"
-          exit 1
-        fi
+          echo "Uploaded successfully! Download link:"
+          echo "$RESPONSE" | jq -r '.data.downloadPage'
 
-        for file in *.img.lz4; do
-          echo "📦 Decompressing $file..."
-          lz4 -d "$file" "${file%.lz4}"
-        done
-        cd ../..
+          echo "MD5:"
+          md5sum "$ZIP_FILE"
 
-        # 3. Choose correct GoFile folder
-        case "${{ matrix.target }}" in
-          "ZEROLTE")    FOLDER_ID="$GOFILE_FOLDER_ID_ZEROLTE" ;;
-          "ZEROFLTE")   FOLDER_ID="$GOFILE_FOLDER_ID_ZEROFLTE" ;;
-          "ZENLTE")   FOLDER_ID="$GOFILE_FOLDER_ID_ZENLTE" ;;
-          "NOBLELTE")        FOLDER_ID="$GOFILE_FOLDER_ID_NOBLELTE" ;;
-          *) echo "❌ Unknown device: ${{ matrix.target }}" && exit 1 ;;
-        esac
-
-        # 4. Upload each IMG
-        for IMG in out/extracted/*.img; do
-          echo "⬆️ Uploading $IMG to GoFile..."
-          RESPONSE=$(curl -s -F "file=@$IMG" \
-            -F "token=$GOFILE_TOKEN" \
-            -F "folderId=$FOLDER_ID" \
-            "https://upload.gofile.io/uploadFile")
-
-          LINK=$(echo "$RESPONSE" | jq -r '.data.downloadPage')
-          echo "✅ Uploaded: $IMG"
-          echo "🔗 Download: $LINK"
-        done
-
+          echo "SHA256:"
+          sha256sum "$ZIP_FILE"

@@ -1,4 +1,4 @@
-name: Build ArtisanROM
+name: Build ArtisanROM 9810
 
 on:
   workflow_dispatch:
