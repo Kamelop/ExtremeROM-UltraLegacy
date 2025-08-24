@@ -16,7 +16,7 @@
 #
 
 # UN1CA configuration file
-ROM_VERSION="0.1.0-rc2"
+ROM_VERSION="0.1.1"
 ROM_VERSION+=""
 ROM_CODENAME="Ultra"
 ROM_STATUS="BETA"
