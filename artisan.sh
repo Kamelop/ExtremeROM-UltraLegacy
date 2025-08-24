@@ -82,6 +82,7 @@ echo -e "  ${CYAN}R7N${NC}        → Samsung Galaxy Note10 Lite"
 echo -e "  ${CYAN}E1S${NC}       → Samsung Galaxy S24 (WIP)"
 echo -e "  ${CYAN}E2S${NC}       → Samsung Galaxy S24+ (WIP)"
 echo -e "  ${CYAN}R12S${NC}       → Samsung Galaxy S24FE (WIP)"
+echo -e "  ${CYAN}M33X${NC}       → Samsung Galaxy M33 5G (WIP)"
 echo
 
 read -p "Enter codename (e.g., crownlte): " codename
